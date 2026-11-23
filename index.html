@@ -633,7 +633,8 @@ textarea.grow{overflow:hidden;resize:none}
 .cfg-sel{width:100%;max-width:460px;border:1px solid var(--line2);border-radius:10px;padding:9px 10px;background:#fff}
 .pf-sec{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#FBFCFD}
 .pf-sec h6{margin:0 0 2px;font-size:13.5px;color:var(--navy)}.pf-sec p{font-size:12px;margin:0 0 10px}
-.bigsearch #arFmt{white-space:nowrap}
+.pact .sq.fq{width:auto;padding:0 10px;gap:5px;display:inline-flex;align-items:center;background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700;font-size:12.5px}.pact .sq.fq:hover{background:var(--navy-d)}
+@media (max-width:640px){.pact .sq.fq span{display:none}.pact .sq.fq{padding:0 8px}}
 /* Z Fold desplegado y tabletas: pestañas abajo, como en el celular */
 @media (min-width:641px) and (max-width:1024px){
   nav.tabs{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:40;justify-content:space-around;gap:0;padding:4px 8px calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--line);border-bottom:0;box-shadow:0 -8px 24px -16px rgba(20,43,74,.35);overflow:visible}
@@ -1103,7 +1104,7 @@ function buscarEn(lista, q) {
 }
 function tagFn(m) { return m.fn ? `<span>FN. ${dmy(m.fn)}</span><span>${edad(m.fn)}</span>` : ''; }
 function actBtns(id) {
-  return `<span class="pact"><button class="sq y" data-exp="${id}" title="Archivo clínico" aria-label="Archivo clínico">${ic('arch')}</button></span>`;
+  return `<span class="pact"><button class="sq fq" data-fmtp="${id}" title="Formatos" aria-label="Formatos">${ic('plus')}<span>Formatos</span></button><button class="sq y" data-exp="${id}" title="Archivo clínico" aria-label="Archivo clínico">${ic('arch')}</button></span>`;
 }
 document.addEventListener('click', e => {
   const h = e.target.closest('[data-hoja]'); if (h) { abrirHoja(h.dataset.hoja); return; }
@@ -1116,7 +1117,7 @@ const AR = { q: '', orden: 'rec', n: 60 };
 VIEWS.archivo = function () {
   const v = $('#view');
   v.innerHTML = `<div class="bigsearch"><label class="search big">${ic('search')}<input type="search" id="arQ" placeholder="Buscar paciente por nombre, fecha de nacimiento o teléfono…" value="${esc(AR.q)}" autocomplete="off"></label>
-    <button class="btn" id="arFmt">${ic('nota')}Formatos</button><button class="btn pri" id="arNew">${ic('plus')}Nuevo paciente</button></div>
+    <button class="btn pri" id="arNew">${ic('plus')}Nuevo paciente</button></div>
   <div class="tools" style="justify-content:space-between"><span class="stat-line" style="margin:0"><span id="arCnt"></span></span>
   <span style="display:flex;gap:8px"><label class="sel"><span>Orden</span><select id="arOrd"><option value="rec">Más recientes</option><option value="az">Alfabético</option><option value="cr">Registrados recientemente</option></select></label>
   <button class="btn icon" id="arRef" title="Actualizar lista">${ic('refresh')}</button></span></div>
@@ -1128,7 +1129,6 @@ VIEWS.archivo = function () {
   $('#arRef').onclick = async () => { await recargarLista(); pintaArchivo(); toast('Lista actualizada'); };
   $('#arMas').onclick = () => { AR.n += 60; pintaArchivo(); };
   $('#arNew').onclick = () => nuevoPaciente(AR.q);
-  $('#arFmt').onclick = formatosRapidos;
   pintaArchivo();
   if (matchMedia('(min-width:700px)').matches) setTimeout(() => $('#arQ').focus(), 50);
 };
@@ -2312,7 +2312,7 @@ async function pintaExp(primera) {
   const docs = (p.docs || []).filter(x => x.est !== 'nuevo'), arch = (p.archivos || []).filter(a => !a.borrado);
   const cnt = k => k === 'todo' ? docs.length : k === 'arch' ? arch.length : docs.filter(x => x.tipo === k).length;
   $('#expRoot').innerHTML = `<div class="dlg-h"><div class="t"><span class="fcat">Archivo clínico</span><b>${esc(nombreDe(dd))}</b></div>
-    <div class="acts"><button class="btn" data-hoja="${p.id}">${ic('grid')}Hoja de datos</button></div><button class="x" data-xx>✕</button></div>
+    <div class="acts"><button class="btn pri" data-fmtp="${p.id}">${ic('plus')}Formatos</button><button class="btn" data-hoja="${p.id}">${ic('grid')}Hoja de datos</button></div><button class="x" data-xx>✕</button></div>
   <div class="dlg-b"><div class="xhead"><div style="flex:1"><div style="display:flex;gap:6px;flex-wrap:wrap">
     ${dd.fnac ? `<span class="chip">Nac. <b>${dmy(dd.fnac)}</b></span><span class="chip"><b>${edad(dd.fnac)}</b></span>` : ''}${dd.sexo ? `<span class="chip"><b>${SEXO[dd.sexo]}</b></span>` : ''}${dd.tel1 ? `<span class="chip">${ic('phone')} <b>${esc(dd.tel1)}</b></span>` : ''}
     ${h.activo ? `<span class="chip blue">Hospitalizado · <b>${esc(sedeNom(h.sede))} cama ${esc(h.cama || '—')}</b> desde ${dmy(h.fIngreso)}</span>` : '<span class="chip">Consulta externa</span>'}
@@ -2841,12 +2841,13 @@ const FMT_RAPIDO = [
   ['Indicaciones y egreso', [['indic', '', 'Indicaciones médicas', 'indic'], ['alta', '', 'Nota de alta', 'alta']]],
   ['Solicitudes y recetas', [['receta', '', 'Receta', 'receta'], ['lab', '', 'Laboratorio', 'lab'], ['gab', '', 'Gabinete', 'gab']]]
 ];
-function formatosRapidos() {
+function formatosRapidos(pid) {
+  pid = typeof pid === 'string' ? pid : '';
   let d = $('#dlgFmt');
   if (!d) { d = document.createElement('dialog'); d.id = 'dlgFmt'; d.className = 'md'; d.innerHTML = '<div class="dlg" id="fmtRoot"></div>'; document.body.appendChild(d); }
   const R = $('#fmtRoot'), todos = FMT_RAPIDO.flatMap(g => g[1]); let sel = -1;
   const pasoFormato = () => {
-    R.innerHTML = `<div class="dlg-h"><div class="t"><b>Formatos</b><small>Elige el formato y después el paciente</small></div><button class="x" data-fx aria-label="Cerrar">✕</button></div>
+    R.innerHTML = `<div class="dlg-h"><div class="t"><b>Formatos</b><small>${pid ? esc(((S.lista.find(x => x.id === pid) || {}).m || {}).n || '') : 'Elige el formato y después el paciente'}</small></div><button class="x" data-fx aria-label="Cerrar">✕</button></div>
       <div class="dlg-b">${FMT_RAPIDO.map(([g, l]) => `<div class="fr-sub">${esc(g)}</div><div class="fr-g">${l.map(f => `<button type="button" class="fmt-i" data-t="${f[0]}" data-fr="${todos.indexOf(f)}"><span class="ti">${ic(f[3])}</span><b>${esc(f[2])}</b>${ic('chev')}</button>`).join('')}</div>`).join('')}</div>`;
   };
   const lista = q => {
@@ -2864,7 +2865,7 @@ function formatosRapidos() {
     const t = e.target;
     if (t.closest('[data-fx]')) { d.close(); return; }
     if (t.closest('[data-fb]')) { pasoFormato(); return; }
-    const fr = t.closest('[data-fr]'); if (fr) { sel = +fr.dataset.fr; pasoPaciente(); return; }
+    const fr = t.closest('[data-fr]'); if (fr) { sel = +fr.dataset.fr; if (pid) { const f = todos[sel]; d.close(); abrirDoc(pid, f[0], f[1] ? { sub: f[1] } : {}); } else pasoPaciente(); return; }
     const fp = t.closest('[data-fp]'); if (fp) { const f = todos[sel]; d.close(); abrirDoc(fp.dataset.fp, f[0], f[1] ? { sub: f[1] } : {}); return; }
     if (t.closest('[data-fn]')) { d.close(); nuevoPaciente(($('#frQ') || {}).value || ''); }
   };
@@ -2957,6 +2958,8 @@ const PERFIL_SEC = [
 function perfilHTML(p) {
   return PERFIL_SEC.map(([t, h, f]) => `<div class="pf-sec"><h6>${t}</h6><p class="muted">${h}</p><div class="grid">${f.map(([k, l, ph, w]) => `<div class="f s${w}"><label>${l}</label><input data-pf="${k}" value="${esc(p[k] || (k === 'nombre' ? p.nombreCorto || '' : ''))}" placeholder="${esc(ph)}"></div>`).join('')}</div></div>`).join('');
 }
+
+document.addEventListener('click', e => { const b = e.target.closest('[data-fmtp]'); if (b) { e.stopPropagation(); formatosRapidos(b.dataset.fmtp); } });
 
 /* =====================================================================
    ESTUDIOS Y ARCHIVOS DEL PACIENTE
