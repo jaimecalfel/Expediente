@@ -2353,6 +2353,9 @@ html,body{margin:0;padding:0;background:#fff;color:#1b2536;font-family:Manrope,A
 .x-sb{font-weight:700;font-size:8.6pt;letter-spacing:.13em;color:${RED};text-transform:uppercase;margin-top:4px}
 .x-half .x-sb{font-size:7.3pt;margin-top:3px}
 .x-hs{font-size:9.4pt;color:#2b3a52;margin-top:5px}
+.x-tel{display:inline-flex;align-items:center;gap:5px;font-size:9pt;font-weight:600;color:${INK};margin-top:4px}
+.x-tel svg{width:11px;height:11px;fill:none;stroke:${RED};stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.x-half .x-tel{font-size:7.8pt;margin-top:3px}.x-half .x-tel svg{width:9px;height:9px}
 .x-rl{border-top:1.4px solid ${RULE};margin:.13in 0 .07in}
 .x-half .x-rl{margin:.09in 0 .05in}
 .x-addr{text-align:center;font-size:7.7pt;color:#4a5568;letter-spacing:.01em}
@@ -2429,8 +2432,9 @@ function membrete(sedeId, variante) {
   const p = perfil(), s = sedeDe(sedeId) || sedes().filter(x => x.activa !== false)[0] || null, larga = variante !== 'media';
   const tc = t => String(t || '').toLowerCase().replace(/(^|\s)(\S)/g, (m, a, b) => a + b.toUpperCase()).replace(/\b(De|Del|La|Las|Los|Y)\b/g, w => w.toLowerCase());
   const nombre = p.nombreCorto || p.nombre || '', cargo = p.especialidad || '', hosp = s ? tc(s.nombre) : (p.leyenda || '');
-  const dir = (s && s.direccion) || p.direccion || '', tel = (s && s.telefono) || p.celular || '';
-  const sub = larga ? `<div class="x-sb">${esc(cargo)}</div>${hosp ? `<div class="x-hs">${esc(hosp)}</div>` : ''}` : `<div class="x-sb">${esc([cargo, hosp].filter(Boolean).join(' · '))}</div>`;
+  const dir = (s && s.direccion) || p.direccion || '', tel = (s && s.telefono) || '';
+  const cel = p.celular ? `<div class="x-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>${esc(p.celular)}</div>` : '';
+  const sub = larga ? `<div class="x-sb">${esc(cargo)}</div>${cel}${hosp ? `<div class="x-hs">${esc(hosp)}</div>` : ''}` : `<div class="x-sb">${esc([cargo, hosp].filter(Boolean).join(' · '))}</div>${cel}`;
   const ico = sedeIcono(s);
   return `<div class="x-hd">${ico ? `<div class="x-lg" style="background-image:url(${ico})"></div>` : '<div class="x-lg seal"></div>'}<div class="x-c"><div class="x-nm">${esc(nombre)}</div>${PINZA}${sub}</div><div class="x-lg crab"></div></div>
     <div class="x-rl"></div><div class="x-addr">${esc(dir)}${dir && tel ? '<i>•</i>' : ''}${tel ? 'Tel. ' + esc(tel) : ''}</div>`;
