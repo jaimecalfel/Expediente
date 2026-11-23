@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="application-version" content="1.00">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Expediente JCF</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#142B4A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Expediente JCF">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<style>
+:root{--navy:#142B4A;--red:#D23B3B;--orange:#EE8A22}
+html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--navy)}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff}
+#aviso{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);max-width:calc(100% - 32px);background:#fff;border:1px solid #D5DDE8;border-top:3px solid var(--red);border-radius:12px;box-shadow:0 10px 30px -12px rgba(20,43,74,.45);padding:10px 14px;font-size:13px;display:flex;gap:10px;align-items:center;z-index:2}
+#aviso a{background:var(--navy);color:#fff;text-decoration:none;border-radius:9px;padding:7px 12px;font-weight:700;white-space:nowrap}
+#aviso button{border:0;background:none;color:#64707E;font-size:18px;cursor:pointer}
+</style>
+</head>
+<body>
+<iframe id="app" title="Expediente clínico" allow="clipboard-write"></iframe>
+<div id="aviso" hidden><span>¿No carga? Tu navegador puede bloquear la sesión de Google dentro de la app.</span><a id="abrir" target="_blank" rel="noopener">Abrir</a><button type="button" aria-label="Cerrar" onclick="this.parentNode.hidden=true">✕</button></div>
+<script>
+'use strict';
+const EXEC = 'https://script.google.com/macros/s/AKfycbz_9hfMddP7shfJWesMulZP3dqdAww2TQ6K386NTv4G4f05IHDHQ-OkxTcm-BYProeg/exec';
+document.getElementById('app').src = EXEC;
+document.getElementById('abrir').href = EXEC;
+setTimeout(() => { document.getElementById('aviso').hidden = false; }, 9000);
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => { });
+</script>
+</body>
+</html>

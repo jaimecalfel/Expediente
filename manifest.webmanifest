@@ -1,0 +1,15 @@
+{
+  "name": "Expediente clínico · Dr. Jaime Caldera Félix",
+  "short_name": "Expediente JCF",
+  "description": "Expediente clínico personal de Cirugía Oncológica",
+  "lang": "es-MX",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#142B4A",
+  "icons": [
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
