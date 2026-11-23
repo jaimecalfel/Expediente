@@ -634,6 +634,11 @@ textarea.grow{overflow:hidden;resize:none}
 .pf-sec{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#FBFCFD}
 .pf-sec h6{margin:0 0 2px;font-size:13.5px;color:var(--navy)}.pf-sec p{font-size:12px;margin:0 0 10px}
 .pact .sq.fq{width:auto;padding:0 10px;gap:5px;display:inline-flex;align-items:center;background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700;font-size:12.5px}.pact .sq.fq:hover{background:var(--navy-d)}
+/* celular y Z Fold: botones del paciente a un lado, en columna */
+@media (max-width:1024px){.prow.nob{grid-template-columns:minmax(0,1fr) auto!important;column-gap:12px;row-gap:6px}
+  .prow.nob>*:not(.pact){grid-column:1}
+  .prow.nob>.pact{grid-column:2;grid-row:1 / span 3;flex-direction:column;align-self:center;gap:8px}
+  .prow.nob .pact .sq.fq span{display:none}.prow.nob .pact .sq.fq{width:40px;padding:0;justify-content:center}}
 @media (max-width:640px){.pact .sq.fq span{display:none}.pact .sq.fq{padding:0 8px}}
 /* Z Fold desplegado y tabletas: pestañas abajo, como en el celular */
 @media (min-width:641px) and (max-width:1024px){
