@@ -1995,7 +1995,7 @@ function docNuevo(tipo, opt, pac) {
   if (tipo === 'postqx') { const cx = pac.cx || {}; let t = POSTQX_T; const put = (k, v) => { if (v) t = t.replace(k + ':\n', k + ': ' + v + '\n'); };
     put('DIAGNÓSTICO PREOPERATORIO', dx); put('CIRUGÍA PROGRAMADA', pre.cx || cx.planeada || ''); put('CIRUJANO', perfil().nombre || ''); put('TIPO DE ANESTESIA', pre.anest || ''); put('AYUDANTES', pre.ayud || ''); d.c.txt = t; }
   if (tipo === 'alta') Object.assign(d.c, { fIng: h.fIngreso || '', fEgr: hoyISO(), trat: [], motEgr: 'MEJORÍA', dxIng: h.motivo || dx, dxEgr: dx, resumen: ALTA_RES, indic: ALTA_IND, cita: '' });
-  if (tipo === 'receta') Object.assign(d.c, { modo: 'solo', r1: '', r2: '' });
+  if (tipo === 'receta') Object.assign(d.c, { modo: 'solo', r1: '• ', r2: '• ' });
   if (tipo === 'lab' || tipo === 'gab') Object.assign(d.c, { txt: '', dx, obs: tipo === 'lab' ? 'AYUNO DE 8 HORAS' : '' });
   if (tipo === 'consent') { const cx = pac.cx || {}; Object.assign(d.c, { proc: cx.planeada || pre.cx || '', dx, anest: '', desc: '', benef: CONS_BEN, riesgos: CONS_RIESGOS, alt: '', rep: '', parent: '', t1: '', t2: '' }); }
   return d;
@@ -2099,11 +2099,11 @@ function cabeceraDoc(d) {
   const h = D.pac.hosp || {}, hrs = d.tipo === 'indic' ? ['07:00', '08:00', '17:00'] : [];
   return `<div class="grid">
     <div class="f"><label>Fecha <span class="mini" data-hoy="dcFecha">Hoy</span>${d.tipo === 'indic' ? '<span class="mini" data-man="dcFecha">Mañana</span>' : ''}</label><input id="dcFecha" data-date value="${dmy(d.fecha)}" placeholder="DD.MM.AA"></div>
-    <div class="f s1"><label>Hora ${hrs.map(x => `<span class="mini" data-hr="${x}">${x}</span>`).join('') || '<span class="mini" data-ahora>Ahora</span>'}</label><input id="dcHora" type="time" value="${esc(d.hora || '')}"></div>
+    <div class="f ${hrs.length ? 's2' : 's1'}"><label>Hora ${hrs.map(x => `<span class="mini" data-hr="${x}">${x}</span>`).join('') || '<span class="mini" data-ahora>Ahora</span>'}</label><input id="dcHora" type="time" value="${esc(d.hora || '')}"></div>
     <div class="f s2"><label>Lugar de atención</label><select id="dcSede">${sedeOpts(d.sede)}</select></div>
-    <div class="f"><label>Ámbito</label><select id="dcAmb"><option value="cext"${d.amb === 'cext' ? ' selected' : ''}>Consulta externa</option><option value="hosp"${d.amb === 'hosp' ? ' selected' : ''}>Hospitalización</option></select></div>
+    ${d.tipo === 'nota' ? '' : ambHTML(d, '')}
     ${d.amb === 'hosp' ? `<div class="f s1"><label>Cama</label><input id="dcCama" class="up" value="${esc(d.cama || h.cama || '')}"></div>` : ''}
-    ${d.tipo === 'nota' ? `<div class="f s6"><label>Tipo de nota ${d.est === 'nuevo' && NOTAS_CONS.includes(d.sub) ? `<span class="hint">· elegida según el historial del paciente</span>` : ''}</label><select id="dcSub">${Object.keys(NOTAS).map(k => `<option value="${k}"${k === d.sub ? ' selected' : ''}>${NOTAS[k].l}</option>`).join('')}</select></div>` : ''}
+    ${d.tipo === 'nota' ? ambHTML(d, 's2') + `<div class="f s4"><label>Tipo de nota ${d.est === 'nuevo' && NOTAS_CONS.includes(d.sub) ? `<span class="hint">· elegida según el historial del paciente</span>` : ''}</label><select id="dcSub">${tiposNotaHTML(d.sub)}</select></div>` : ''}
   </div>`;
 }
 function svHTML(d, titulo) {
@@ -2131,8 +2131,8 @@ function formDoc(d) {
       ${D.pac.hosp && D.pac.hosp.activo ? '<p class="hint muted" style="font-size:12px;margin-top:10px">Al guardar se registra el egreso hospitalario del paciente.</p>' : ''}`;
   } else if (d.tipo === 'receta') {
     h += svHTML(d, 'Datos del encabezado (peso, estatura y signos)');
-    h += `<div class="rx-half"><h6>${c.modo === 'otro' ? 'Receta · mitad superior' : c.modo === 'copia' ? 'Receta · se imprime dos veces' : c.modo === 'larga' ? 'Receta larga' : 'Receta'}</h6><textarea data-c="r1" class="grow" data-min="220" placeholder="Medicamento, presentación\nIndicación: dosis, vía, frecuencia y duración">${esc(c.r1 || '')}</textarea></div>
-      ${c.modo === 'otro' ? `<div class="rx-half"><h6>Segunda receta · mitad inferior</h6><div class="grid" style="margin-bottom:8px"><div class="f s3"><label>Lugar (membrete de abajo)</label><select data-c="sede2">${sedeOpts(c.sede2, null, 'El mismo de arriba')}</select></div></div><textarea data-c="r2" class="grow" data-min="220">${esc(c.r2 || '')}</textarea></div>` : ''}
+    h += `<div class="rx-half"><h6>${c.modo === 'otro' ? 'Receta · mitad superior' : c.modo === 'copia' ? 'Receta · se imprime dos veces' : c.modo === 'larga' ? 'Receta larga' : 'Receta'}</h6>${D.ro ? '' : '<div class="fmt-bar" role="toolbar" aria-label="Formato del texto"><button type="button" data-fmt="b" title="Negritas (**texto**)"><b>N</b></button><button type="button" data-fmt="i" title="Cursiva (_texto_)"><i>K</i></button><span></span><button type="button" data-fmt="ul" title="Viñetas">• Viñetas</button><button type="button" data-fmt="ol" title="Numeración">1. Numeración</button><span></span><button type="button" data-fmt="up" title="Mayúsculas">AA</button><button type="button" data-fmt="clr" title="Quitar formato">Quitar formato</button></div>'}<textarea data-c="r1" class="grow" data-min="220" placeholder="• Medicamento, presentación\n    ◦ Indicación: dosis, vía, frecuencia y duración">${esc(c.r1 || '')}</textarea></div>
+      ${c.modo === 'otro' ? `<div class="rx-half"><h6>Segunda receta · mitad inferior</h6><div class="grid" style="margin-bottom:8px"><div class="f s3"><label>Lugar (membrete de abajo)</label><select data-c="sede2">${sedeOpts(c.sede2, null, 'El mismo de arriba')}</select></div></div>${D.ro ? '' : '<div class="fmt-bar" role="toolbar" aria-label="Formato del texto"><button type="button" data-fmt="b" title="Negritas (**texto**)"><b>N</b></button><button type="button" data-fmt="i" title="Cursiva (_texto_)"><i>K</i></button><span></span><button type="button" data-fmt="ul" title="Viñetas">• Viñetas</button><button type="button" data-fmt="ol" title="Numeración">1. Numeración</button><span></span><button type="button" data-fmt="up" title="Mayúsculas">AA</button><button type="button" data-fmt="clr" title="Quitar formato">Quitar formato</button></div>'}<textarea data-c="r2" class="grow" data-min="220">${esc(c.r2 || '')}</textarea></div>` : ''}
       <div class="grid"><div class="f s6"><label>Diagnóstico (opcional en la receta)</label><input data-c="dx" class="up" value="${esc(c.dx || '')}"></div></div>`;
   } else if (d.tipo === 'lab' || d.tipo === 'gab') {
     h += `<div class="sub sub-f">${d.tipo === 'lab' ? 'Estudios de laboratorio solicitados' : 'Estudios de gabinete solicitados'} <span class="grow"></span>${copiarBtn('Copiar última solicitud')}</div>
@@ -2170,7 +2170,7 @@ async function onEditorClick(ev) {
   const hr = t.closest('[data-hr]'); if (hr) { $('#dcHora').value = hr.dataset.hr; leerForm(); marcar(); return; }
   if (D.ro) { const a = t.closest('[data-a]'); if (a) await accionCabecera(a.dataset.a); return; }
   const df = t.closest('[data-def]'); if (df) { const e = $(`[data-c="${df.dataset.def}"]`); e.value = (INDIC_F.find(x => x[0] === df.dataset.def) || [])[2] || ''; autoAlto(e); leerForm(); marcar(); return; }
-  const md = t.closest('[data-modo]'); if (md) { leerForm(); d.c.modo = md.dataset.modo; if (md.dataset.modo !== 'otro') d.c.r2 = ''; D.dirty = true; pintaEditor(); return; }
+  const md = t.closest('[data-modo]'); if (md) { leerForm(); d.c.modo = md.dataset.modo; if (md.dataset.modo !== 'otro') d.c.r2 = ''; else if (!d.c.r2) d.c.r2 = '• '; D.dirty = true; pintaEditor(); return; }
   const pr = t.closest('[data-pre]'); if (pr) { leerForm(); aplicarPreset(+pr.dataset.pre); return; }
   const sp = t.closest('[data-spre]'); if (sp) { leerForm(); const L = d.tipo === 'lab' ? LAB_PRE : GAB_PRE, txt = L[+sp.dataset.spre][1], cur = d.c.txt || '';
     if (norm(cur).includes(norm(txt))) d.c.txt = cur.split('\n').filter(x => !txt.split('\n').map(norm).includes(norm(x))).join('\n').replace(/\n{3,}/g, '\n\n').trim();
@@ -2246,8 +2246,8 @@ function faltantes(d) {
   if (!d.hora && ['nota', 'postqx', 'indic'].includes(d.tipo)) f.push(['La hora (la NOM-004 la pide en notas e indicaciones)', '#dcHora']);
   if ((d.tipo === 'nota' || d.tipo === 'postqx') && vacio(c.txt)) f.push(['El contenido: escribe al menos un apartado (los títulos solos no cuentan)', '#dcTxt']);
   if (d.tipo === 'alta') { if (!c.fEgr) f.push(['La fecha de egreso', '[data-c="fEgr"]']); if (!String(c.dxEgr || '').trim()) f.push(['El diagnóstico de egreso', '[data-c="dxEgr"]']); }
-  if (d.tipo === 'receta' && !String(c.r1 || '').trim()) f.push(['El texto de la receta (medicamento e indicaciones)', '[data-c="r1"]']);
-  if (d.tipo === 'receta' && c.modo === 'otro' && !String(c.r2 || '').trim()) f.push(['La segunda receta (mitad inferior) o cambia a «Una receta»', '[data-c="r2"]']);
+  if (d.tipo === 'receta' && !String(c.r1 || '').replace(/[•◦▪\s]/g, '')) f.push(['El texto de la receta (medicamento e indicaciones)', '[data-c="r1"]']);
+  if (d.tipo === 'receta' && c.modo === 'otro' && !String(c.r2 || '').replace(/[•◦▪\s]/g, '')) f.push(['La segunda receta (mitad inferior) o cambia a «Una receta»', '[data-c="r2"]']);
   if ((d.tipo === 'lab' || d.tipo === 'gab') && !String(c.txt || '').trim()) f.push(['Al menos un estudio solicitado (escríbelo o elige un predeterminado)', '#dcTxt']);
   if (d.tipo === 'consent') { if (!String(c.proc || '').trim()) f.push(['El procedimiento que se autoriza', '[data-c="proc"]']); if (!String(c.riesgos || '').trim()) f.push(['Los riesgos y posibles complicaciones', '[data-c="riesgos"]']); }
   if (d.tipo === 'indic' && !INDIC_F.some(([k]) => String(c[k] || '').trim())) f.push(['Al menos una indicación (dieta, soluciones, medicamentos…)', '[data-c="dieta"]']);
@@ -2530,7 +2530,7 @@ function mediaIndic(pac, d, cuerpo) {
 function hojaReceta(pac, d, texto, sedeId, larga) {
   const sello = selloDe(d), v = larga ? 'larga' : 'media';
   return `<div class="x-page${larga ? '' : ' x-half'}"><div class="x-wm"></div>${sello ? `<div class="x-sello">${sello}</div>` : ''}<div class="x-in">${membrete(sedeId, v)}${lineaPaciente(pac, d, true)}
-    <div><span class="x-rx">R<i>x</i></span></div><div class="x-rxb" data-fit="${larga ? 12 : 11}">${esc(texto || '')}</div>${piePagina(v)}</div></div>`;
+    <div><span class="x-rx">R<i>x</i></span></div><div class="x-rxb" data-fit="${larga ? 12 : 11}">${fmtTxt(texto || '')}</div>${piePagina(v)}</div></div>`;
 }
 
 /* ---------- Maquetador: mide en una hoja oculta y reparte el contenido en páginas ---------- */
@@ -2812,7 +2812,7 @@ document.addEventListener('click', e => {
   if (k === 'b' || k === 'i') { const m = k === 'b' ? '**' : '_', sel = v.slice(a, z) || 'texto'; nuevo = v.slice(0, a) + m + sel + m + v.slice(z); selA = a + m.length; selZ = selA + sel.length; }
   else {
     const lineas = v.slice(ini, finL).split('\n');
-    const limpia = l => l.replace(/^(\s*)(•\s+|\d+\.\s+)/, '$1');
+    const limpia = l => l.replace(/^(\s*)([•◦▪]\s+|\d+\.\s+)/, '$1');
     const out = k === 'ul' ? lineas.map(l => l.trim() ? '• ' + limpia(l) : l) : k === 'ol' ? lineas.map((l, i) => l.trim() ? (i + 1) + '. ' + limpia(l) : l)
       : k === 'up' ? lineas.map(l => l.toUpperCase()) : lineas.map(l => limpia(l).replace(/\*\*([^*]+)\*\*/g, '$1').replace(/(^|\s)_([^_]+)_/g, '$1$2'));
     const txt = out.join('\n'); nuevo = v.slice(0, ini) + txt + v.slice(finL); selA = ini; selZ = ini + txt.length;
@@ -2965,6 +2965,47 @@ function perfilHTML(p) {
 }
 
 document.addEventListener('click', e => { const b = e.target.closest('[data-fmtp]'); if (b) { e.stopPropagation(); formatosRapidos(b.dataset.fmtp); } });
+
+/* ---------- Encabezado del editor: Ámbito y Tipo de nota en la misma fila; tipos agrupados ---------- */
+function ambHTML(d, cls) {
+  return `<div class="f ${cls}"><label>Ámbito</label><select id="dcAmb"><option value="cext"${d.amb === 'cext' ? ' selected' : ''}>Consulta externa</option><option value="hosp"${d.amb === 'hosp' ? ' selected' : ''}>Hospitalización</option></select></div>`;
+}
+const NOTAS_GRUPOS = [
+  ['Consulta externa', [['cons1', 'Primera vez'], ['cons2', 'Subsecuente']]],
+  ['Procedimiento', [['preop', 'Preoperatoria'], ['postqx', 'Posoperatoria'], ['diferimiento', 'Diferimiento']]],
+  ['Hospitalización', [['ingreso', 'Ingreso'], ['evol', 'Evolución'], ['gravedad', 'Gravedad'], ['reingreso', 'Reingreso a piso'], ['defuncion', 'Defunción']]],
+  ['Otras', [['agregada', 'Agregada'], ['urg', 'Valoración de urgencias'], ['interc', 'Interconsulta'], ['ref', 'Referencia / traslado']]]
+];
+function tiposNotaHTML(sel) {
+  const usados = NOTAS_GRUPOS.flatMap(g => g[1].map(x => x[0]));
+  const extra = sel && !usados.includes(sel) && NOTAS[sel] ? `<option value="${sel}" selected>${esc(NOTAS[sel].l)}</option>` : '';
+  return extra + NOTAS_GRUPOS.map(([g, l]) => `<optgroup label="${esc(g)}">${l.map(([k, t]) => `<option value="${k}"${k === sel ? ' selected' : ''}>${esc(t)}</option>`).join('')}</optgroup>`).join('');
+}
+
+/* ---------- Viñetas: Tab crea sub-viñeta, Shift+Tab regresa, Enter continúa la lista ---------- */
+const VIN = ['•', '◦', '▪'];
+document.addEventListener('keydown', e => {
+  const ta = e.target;
+  if (!ta || ta.tagName !== 'TEXTAREA' || !ta.previousElementSibling || !ta.previousElementSibling.classList.contains('fmt-bar')) return;
+  if (e.key !== 'Tab' && e.key !== 'Enter') return;
+  const v = ta.value, a = ta.selectionStart, z = ta.selectionEnd, ini = v.lastIndexOf('\n', a - 1) + 1;
+  let fin = v.indexOf('\n', a); if (fin < 0) fin = v.length;
+  const linea = v.slice(ini, fin), m = /^( *)([•◦▪]|\d+\.) /.exec(linea);
+  const pon = (txt, pos) => { ta.value = txt; ta.setSelectionRange(pos, pos); ta.dispatchEvent(new Event('input', { bubbles: true })); };
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const lvl = m ? Math.floor(m[1].length / 4) : 0, resto = m ? linea.slice(m[0].length) : linea;
+    if (e.shiftKey) { if (!m || !lvl) return; const nl = lvl - 1, nueva = ' '.repeat(nl * 4) + (/\d/.test(m[2]) ? m[2] : VIN[nl % 3]) + ' ' + resto; pon(v.slice(0, ini) + nueva + v.slice(fin), ini + nueva.length); return; }
+    const nl = m ? Math.min(lvl + 1, 3) : 1, nueva = ' '.repeat(nl * 4) + VIN[nl % 3] + ' ' + resto;
+    pon(v.slice(0, ini) + nueva + v.slice(fin), ini + nueva.length); return;
+  }
+  if (e.key === 'Enter' && m && a === z && !e.shiftKey) {
+    e.preventDefault();
+    if (!linea.slice(m[0].length).trim()) { pon(v.slice(0, ini) + v.slice(fin), ini); return; }
+    const pref = m[1] + (/\d/.test(m[2]) ? (parseInt(m[2], 10) + 1) + '.' : m[2]) + ' ';
+    pon(v.slice(0, a) + '\n' + pref + v.slice(a), a + 1 + pref.length);
+  }
+});
 
 /* =====================================================================
    ESTUDIOS Y ARCHIVOS DEL PACIENTE
