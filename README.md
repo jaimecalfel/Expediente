@@ -1,4 +1,5 @@
 # Expediente JCF
 
-Lanzador instalable del expediente clínico personal.
-La aplicación y los datos viven en Google Apps Script y Google Drive del titular; este sitio no contiene datos de pacientes ni credenciales.
+Expediente clínico personal (página instalable).
+Los datos viven en Google Drive del titular a través de su Apps Script; el servidor solo acepta la cuenta de Google titular.
+Este repositorio no contiene datos de pacientes ni credenciales.
