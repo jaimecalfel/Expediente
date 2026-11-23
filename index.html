@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="application-version" content="1.00">
+<meta name="application-version" content="1.01">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <title>Dr. Jaime Caldera Félix · Expediente clínico</title>
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-512.png">
 <meta name="theme-color" content="#142B4A">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -601,6 +602,49 @@ textarea.grow{overflow:hidden;resize:none}
 .ico-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .ico-prev{width:54px;height:54px;border:1px solid var(--line2);border-radius:12px;background:#fff center/contain no-repeat;flex:none}
 .ico-prev.def{background-size:auto 150%;background-position:center 44%;opacity:.7}
+/* v1.01 */
+.ttl-ic{display:none!important}
+#btnOut{display:none!important}
+#hAv{cursor:pointer}#hAv:hover{box-shadow:0 0 0 3px #FCE9E9}
+.acct-m{position:fixed;z-index:80;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px -18px rgba(20,43,74,.45);min-width:270px;max-width:calc(100vw - 16px);padding:8px}
+.acct-h{display:flex;gap:10px;align-items:center;padding:8px 8px 10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.acct-h img,.acct-h span{width:42px;height:42px;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#EEF2F7;color:var(--navy);font-weight:700;flex:none}
+.acct-h b{display:block;font-size:14px;color:var(--navy)}.acct-h small{color:var(--mute);font-size:12px;word-break:break-all}
+.acct-m button,.acct-m a{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:0;background:none;border-radius:9px;text-align:left;color:var(--ink);text-decoration:none;font-size:13.5px}
+.acct-m button:hover,.acct-m a:hover{background:#F4F6F9}.acct-m [data-acct=out]{color:var(--red)}
+.brand .pinza{display:block!important;height:17px!important;width:min(440px,100%)!important;margin:3px auto 1px!important}
+@media (max-width:640px){.brand .pinza{margin-left:0!important}}
+.rb-dl{background:#E6F4F3!important;border-color:#9FD3CE!important;color:#0F6F6A!important}.rb-dl:hover{background:#D3ECEA!important}
+.btn.dl{background:#0F766E!important;border-color:#0F766E!important;color:#fff!important}.btn.dl:hover{background:#0B5F59!important}
+.rb-bor{background:#B23A3A;border-color:#B23A3A;color:#fff}.rb-bor:hover{background:#952E2E}
+.rec .rec-a{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.rec .rec-a .rb{justify-content:center;padding:4px 5px;min-width:0}.rec .rec-a .rb span{overflow:hidden;text-overflow:ellipsis}
+.recs{overflow-x:hidden}
+.side-card:has(#rxPre){display:none}
+.fr-sub{font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin:12px 2px 6px}.fr-sub:first-child{margin-top:0}
+.fr-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.fr-l{display:flex;flex-direction:column;gap:6px;margin-top:10px;max-height:52vh;overflow:auto}
+.fr-p{text-align:left;border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 12px}.fr-p:hover{border-color:var(--navy)}
+.fr-p b{display:block;color:var(--navy);font-size:14px}.fr-p small{color:var(--mute);font-size:12px}.fr-h{margin:6px 2px;font-size:12.5px}
+.est-btn{cursor:pointer;border:1px solid transparent;font:inherit}.est-btn:hover{filter:brightness(.95);border-color:currentColor}
+.est-menu{position:fixed;z-index:80;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 30px -14px rgba(20,43,74,.45);padding:6px;min-width:170px}
+.est-menu button{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border:0;background:none;border-radius:8px;text-align:left;font-size:13.5px}
+.est-menu button:hover,.est-menu button.on{background:#F4F6F9}.est-menu button.on{font-weight:700}.est-menu .chip{width:10px;height:10px;padding:0;border-radius:50%;display:inline-block}
+.cfg-sel{width:100%;max-width:460px;border:1px solid var(--line2);border-radius:10px;padding:9px 10px;background:#fff}
+.pf-sec{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#FBFCFD}
+.pf-sec h6{margin:0 0 2px;font-size:13.5px;color:var(--navy)}.pf-sec p{font-size:12px;margin:0 0 10px}
+.bigsearch #arFmt{white-space:nowrap}
+/* Z Fold desplegado y tabletas: pestañas abajo, como en el celular */
+@media (min-width:641px) and (max-width:1024px){
+  nav.tabs{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:40;justify-content:space-around;gap:0;padding:4px 8px calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--line);border-bottom:0;box-shadow:0 -8px 24px -16px rgba(20,43,74,.35);overflow:visible}
+  nav.tabs .sep{display:none}
+  nav.tabs button{flex:1;flex-direction:column;gap:3px;padding:8px 4px 6px;font-size:12px;border-bottom:0;border-radius:12px;position:relative;min-width:0}
+  nav.tabs button .ic{width:23px;height:23px}
+  nav.tabs button.on{background:#ECF0F5;border-bottom:0}
+  body:not(.locked) main{padding-bottom:96px}
+  .appft{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+  #toasts{bottom:calc(84px + env(safe-area-inset-bottom))}
+}
 /* acentos del sello (azul marino), del cangrejo (rojo y naranja) y de la receta */
 nav.tabs button.on{border-bottom-color:var(--red)}nav.tabs button.on .ic{color:var(--red)}
 nav.tabs .cnt{background:#FCE9E9;color:var(--red)}
@@ -665,7 +709,7 @@ nav.tabs .cnt{background:#FCE9E9;color:var(--red)}
    Todo (nombre del médico, cédulas, sedes, pacientes, agenda) llega desde el
    servidor de Google Apps Script (Codigo.gs) después de iniciar sesión con Google.
    ===================================================================== */
-const APP_VERSION = '1.00', APP_FECHA = '22.11.26';
+const APP_VERSION = '1.01', APP_FECHA = '23.11.26';
 const API_URL = 'https://script.google.com/macros/s/AKfycbz_9hfMddP7shfJWesMulZP3dqdAww2TQ6K386NTv4G4f05IHDHQ-OkxTcm-BYProeg/exec';   // enlace /exec personal
 const CLIENT_ID = '326061599193-1udphb9fgu5ss463i4mcnom7f7tf6cmb.apps.googleusercontent.com';   // ID de cliente OAuth (proyecto Expediente JCF)
 
@@ -817,7 +861,7 @@ async function call(fn, ...args) {
     let r, j;
     S.busy++; renderSync();
     try {
-      const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), fn === 'dcGuardar' ? 60000 : 40000);
+      const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), /^(dcGuardar|dcCalendario|dcArchivo|dcRespaldo|dcPdf|dcEstadisticas|dcLeerVarios|dcInit)/.test(fn) ? 300000 : 60000);
       try { r = await fetch(u, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ t: tokGet(), v: APP_VERSION, fn, args }), redirect: 'follow', credentials: 'omit', signal: ctl.signal }); }
       finally { clearTimeout(tm); }
       j = await r.json();
@@ -864,7 +908,7 @@ async function showGate(msg, bad) {
     if (!bad) try { id.prompt(); } catch (_) { }
   } catch (e) { gateMsg('No se pudo cargar el inicio de sesión de Google. Revisa tu conexión.', true); }
 }
-function onCred(c) { if (!c) return; tokSet(c, jwtExp(c)); enter(); }
+function onCred(c) { if (!c) return; guardaCuenta(c); tokSet(c, jwtExp(c)); enter(); }
 function hideGate() { $('#gate').hidden = true; document.body.classList.remove('locked'); }
 
 async function enter() {
@@ -888,7 +932,8 @@ function aplicarSesion(s) {
   $('#hName').textContent = p.nombreCorto || p.nombre || 'Expediente Clínico';
   $('#hEsp').textContent = p.especialidad || '';
   $('#hWho').innerHTML = `<b>${esc(s.nombre || s.email)}</b>${s.rol === 'medico' ? '' : 'Asistente de programación'}`;
-  $('#hAv').innerHTML = s.foto ? `<img src="${esc(s.foto)}" alt="" referrerpolicy="no-referrer">` : esc(norm(s.nombre || s.email).split(' ').map(w => w[0]).slice(0, 2).join(''));
+  const fotoG = s.foto || cuentaG().foto; menuCuenta();
+  $('#hAv').innerHTML = fotoG ? `<img src="${esc(fotoG)}" alt="" referrerpolicy="no-referrer">` : esc(norm(s.nombre || s.email).split(' ').map(w => w[0]).slice(0, 2).join(''));
   document.title = (p.nombreCorto || 'Expediente Clínico') + ' · Expediente';
   $('#btnNew').hidden = true; $('#btnPanel').hidden = !esMedico();
 }
@@ -999,7 +1044,7 @@ function mutarPac(id, fn, opt, base) {
 }
 function fusionarPac(loc, srv) {
   const out = clone(loc), por = (a, b, k) => { const m = new Map(); (b || []).forEach(x => m.set(x[k], x)); (a || []).forEach(x => { const y = m.get(x[k]); if (!y || (x.mod || 0) >= (y.mod || 0)) m.set(x[k], x); }); return [...m.values()]; };
-  out.docs = por(loc.docs, srv.docs, 'id'); out.archivos = por(loc.archivos, srv.archivos, 'id');
+  out.borrados = [...new Set([...(loc.borrados || []), ...(srv.borrados || [])])]; out.docs = por(loc.docs, srv.docs, 'id').filter(x => !out.borrados.includes(x.id)); out.archivos = por(loc.archivos, srv.archivos, 'id');
   return out;
 }
 async function enviarPac(id, opt) {
@@ -1071,7 +1116,7 @@ const AR = { q: '', orden: 'rec', n: 60 };
 VIEWS.archivo = function () {
   const v = $('#view');
   v.innerHTML = `<div class="bigsearch"><label class="search big">${ic('search')}<input type="search" id="arQ" placeholder="Buscar paciente por nombre, fecha de nacimiento o teléfono…" value="${esc(AR.q)}" autocomplete="off"></label>
-    <button class="btn pri" id="arNew">${ic('plus')}Nuevo paciente</button></div>
+    <button class="btn" id="arFmt">${ic('nota')}Formatos</button><button class="btn pri" id="arNew">${ic('plus')}Nuevo paciente</button></div>
   <div class="tools" style="justify-content:space-between"><span class="stat-line" style="margin:0"><span id="arCnt"></span></span>
   <span style="display:flex;gap:8px"><label class="sel"><span>Orden</span><select id="arOrd"><option value="rec">Más recientes</option><option value="az">Alfabético</option><option value="cr">Registrados recientemente</option></select></label>
   <button class="btn icon" id="arRef" title="Actualizar lista">${ic('refresh')}</button></span></div>
@@ -1083,6 +1128,7 @@ VIEWS.archivo = function () {
   $('#arRef').onclick = async () => { await recargarLista(); pintaArchivo(); toast('Lista actualizada'); };
   $('#arMas').onclick = () => { AR.n += 60; pintaArchivo(); };
   $('#arNew').onclick = () => nuevoPaciente(AR.q);
+  $('#arFmt').onclick = formatosRapidos;
   pintaArchivo();
   if (matchMedia('(min-width:700px)').matches) setTimeout(() => $('#arQ').focus(), 50);
 };
@@ -1330,7 +1376,7 @@ function tarjetaAg(tipo, e) {
   return `<div class="ent${fin ? ' dim' : ''}" style="--sc:${esc(sedeColor(e.sede))}" data-tipo="${tipo}">
     <div class="hr">${esc(e.hora || '—')}${tipo === 'quirofano' && e.dur ? `<small>${esc(e.dur)} min</small>` : ''}${!e.fecha ? '<small>Sin fecha</small>' : ''}</div>
     <div><div class="nm">${esc(e.n || 'SIN NOMBRE')}</div>
-      <div class="ln">${e.fn ? `<span>${edad(e.fn)}</span>·` : ''}${e.t ? `<span>${ic('phone')} ${esc(e.t)}</span>` : ''}${lugar ? `<span class="chip"><i class="dot" style="background:${esc(sedeColor(e.sede))}"></i>${esc(lugar)}</span>` : '<span class="chip warn">Sin lugar asignado</span>'}<span class="chip ${EST_CHIP[est] || ''}">${esc(estL)}</span>${tipo === 'consulta' && e.tc ? `<span class="chip">${esc(e.tc)}</span>` : ''}${tipo === 'quirofano' && e.tcx ? `<span class="chip">${esc(e.tcx)}</span>` : ''}</div>
+      <div class="ln">${e.fn ? `<span>${edad(e.fn)}</span>·` : ''}${e.t ? `<span>${ic('phone')} ${esc(e.t)}</span>` : ''}${lugar ? `<span class="chip"><i class="dot" style="background:${esc(sedeColor(e.sede))}"></i>${esc(lugar)}</span>` : '<span class="chip warn">Sin lugar asignado</span>'}<button type="button" class="chip est-btn ${EST_CHIP[est] || ''}" data-agest="${e.id}" title="Cambiar estado">${esc(estL)} ▾</button>${tipo === 'consulta' && e.tc ? `<span class="chip">${esc(e.tc)}</span>` : ''}${tipo === 'quirofano' && e.tcx ? `<span class="chip">${esc(e.tcx)}</span>` : ''}</div>
       ${tipo === 'quirofano' ? `<div class="ln"><b>${esc(e.cx || 'CIRUGÍA POR DEFINIR')}</b>${e.anest ? ' · ' + esc(e.anest) : ''}</div>` : (e.motivo ? `<div class="ln">${esc(e.motivo)}</div>` : '')}
       ${e.dx ? `<div class="ln muted">DX: ${esc(e.dx)}</div>` : ''}${e.notas ? `<div class="ln muted" style="white-space:pre-wrap">${esc(e.notas)}</div>` : ''}${e.motCanc && fin ? `<div class="ln" style="color:var(--bad)">Motivo: ${esc(e.motCanc)}</div>` : ''}</div>
     <div class="acts"><div class="row" style="flex-wrap:wrap;justify-content:flex-end">${acts}</div></div></div>`;
@@ -1406,20 +1452,21 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) refr
 /* ---------- Diálogo de cita / programación ---------- */
 async function abrirCita(tipo, e, pre = {}) {
   const T = AGT[tipo], nuevo = !e, med = esMedico();
-  e = e ? clone(e) : { id: uid(tipo === 'quirofano' ? 'q' : 'c'), est: T.estIni, fecha: pre.fecha || '', sede: pre.sede || '', sala: pre.sala || '', pac: pre.pac || '' };
+  if (nuevo && !pre.pac && !pre._directo && !pre.desde) return citaBuscar(tipo, pre);
+  e = e ? clone(e) : { id: uid(tipo === 'quirofano' ? 'q' : 'c'), est: T.estIni, fecha: pre.fecha || '', sede: pre.sede || sedeDef(), sala: pre.sala || '', pac: pre.pac || '' };
   if (pre.desde) Object.assign(e, pre.desde);
   const estOpts = T.est.filter(x => med || x[0] !== T.estFin || e.est === T.estFin);
   const root = $('#citaRoot');
   root.innerHTML = `<div class="dlg-h"><div class="t"><b>${nuevo ? (tipo === 'quirofano' ? 'Programar cirugía' : 'Agendar consulta') : (tipo === 'quirofano' ? 'Editar programación' : 'Editar cita')}</b><small>${T.nombre}</small></div><button class="x" data-x>✕</button></div>
   <div class="dlg-b"><div class="box"><div class="sub">Paciente</div>
     <div class="grid">
-      <div class="f s6" style="position:relative"><label>Buscar paciente registrado <span class="hint">(opcional)</span></label><input id="ciBus" placeholder="Escribe el nombre…" autocomplete="off"><div id="ciSug" class="lastdocs" style="position:absolute;top:100%;left:0;right:0;z-index:5;background:#fff;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);border-radius:10px"></div></div>
+      <div class="f s6" style="position:relative" hidden><label>Buscar paciente registrado</label><input id="ciBus" placeholder="Escribe el nombre…" autocomplete="off"><div id="ciSug" class="lastdocs" style="position:absolute;top:100%;left:0;right:0;z-index:5;background:#fff;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);border-radius:10px"></div></div>
       <div class="f"><label>Apellido paterno</label><input id="ciAp" class="up" value="${esc(e.ap || '')}"></div>
       <div class="f"><label>Apellido materno</label><input id="ciAm" class="up" value="${esc(e.am || '')}"></div>
       <div class="f"><label>Nombre(s)</label><input id="ciNo" class="up" value="${esc(e.no || (!e.ap ? e.n || '' : ''))}"></div>
       <div class="f"><label>Fecha de nacimiento</label><input id="ciFn" placeholder="DD.MM.AA" value="${dmy(e.fn)}"></div>
       <div class="f"><label>Teléfono</label><input id="ciTel" inputmode="tel" maxlength="10" value="${esc(e.t || '')}"></div>
-      <div class="f"><label>Vínculo</label><div class="auto" id="ciVin">${e.pac ? 'Expediente vinculado' : 'Sin expediente (se crea al hacer la nota)'}</div></div>
+      <div class="f" hidden><label>Vínculo</label><div class="auto" id="ciVin">${e.pac ? 'Expediente vinculado' : 'Sin expediente (se crea al hacer la nota)'}</div></div>
     </div>
     <div class="sub">${tipo === 'quirofano' ? 'Programación quirúrgica' : 'Cita'}</div>
     <div class="grid">
@@ -1446,6 +1493,7 @@ async function abrirCita(tipo, e, pre = {}) {
   const salas = () => { $('#ciSalas').innerHTML = salasDe(tipo, $('#ciSede').value).map(x => `<option value="${esc(x)}">`).join(''); };
   const canc = () => { $('#ciCancW').hidden = !['cancelada', 'noasistio'].includes($('#ciEst').value); };
   $('#ciSede').onchange = salas; $('#ciEst').onchange = canc; salas(); canc();
+  if (nuevo && e.pac) await citaPrellenar(e.pac);
   $$('[data-dd]', root).forEach(b => b.onclick = () => { const x = new Date(); x.setDate(x.getDate() + +b.dataset.dd); $('#ciF').value = dmy(isoOf(x)); });
   // búsqueda de paciente
   let tmr;
@@ -1935,7 +1983,7 @@ function docNuevo(tipo, opt, pac) {
   if (tipo === 'postqx') { tipo = 'nota'; opt = Object.assign({}, opt, { sub: 'postqx' }); }
   const h = pac.hosp || {}, pre = opt.pre || {}, dx = pre.dx || pac.datos.dx || '';
   const d = { id: uid('d'), tipo, sub: '', fecha: pre.fecha || hoyISO(), hora: pre.hora || (tipo === 'indic' ? '07:00' : ahoraHM()),
-    amb: h.activo && !opt.cita ? 'hosp' : 'cext', sede: pre.sede || (h.activo && !opt.cita ? h.sede : '') || '', cama: h.activo && !opt.cita ? h.cama || '' : '', sv: {}, c: {}, est: 'nuevo' };
+    amb: h.activo && !opt.cita ? 'hosp' : 'cext', sede: pre.sede || (h.activo && !opt.cita ? h.sede : '') || sedeDef(), cama: h.activo && !opt.cita ? h.cama || '' : '', sv: {}, c: {}, est: 'nuevo' };
   if (opt.cita) d.cita = opt.cita;
   if (tipo === 'nota') { d.sub = notaSugerida(pac, opt); d.c.txt = plantillaNota(d.sub, pac, pre); }
   if (tipo === 'indic') { const u = ultimoDoc(pac, 'indic'); INDIC_F.forEach(([k, , def]) => d.c[k] = u ? (u.c[k] != null ? u.c[k] : (k === 'meds' ? medsTxt(u.meds) : '')) : def); }
@@ -2000,10 +2048,10 @@ function banner(d) {
   return '';
 }
 /* Lista de registros previos con Ver · Editar · Imprimir · Cancelar */
-const RB = (k, l, a) => `<button type="button" class="rb rb-${k}" ${a}>${ic(k === 'view' ? 'eye' : k === 'edit' ? 'edit' : k === 'print' ? 'print' : k === 'drive' ? 'drive' : k === 'dl' ? 'dl' : k === 'del' ? 'x' : 'refresh')}<span>${l}</span></button>`;
+const RB = (k, l, a) => `<button type="button" class="rb rb-${k}" ${a}>${ic(k === 'view' ? 'eye' : k === 'edit' ? 'edit' : k === 'print' ? 'print' : k === 'drive' ? 'drive' : k === 'dl' ? 'dl' : k === 'del' || k === 'bor' ? 'x' : 'refresh')}<span>${l}</span></button>`;
 function accionesDoc(d) {
-  return d.est === 'anulado' ? RB('view', 'Ver', `data-rv="${d.id}"`) + RB('dl', 'Descargar', `data-rd="${d.id}"`) + RB('res', 'Restaurar', `data-rr="${d.id}"`)
-    : RB('view', 'Ver', `data-rv="${d.id}"`) + RB('edit', 'Editar', `data-re="${d.id}"`) + RB('print', 'Imprimir', `data-rp="${d.id}"`) + RB('drive', 'Drive', `data-rg="${d.id}"`) + RB('dl', 'Descargar', `data-rd="${d.id}"`) + RB('del', 'Cancelar', `data-rc="${d.id}"`);
+  return d.est === 'anulado' ? RB('view', 'Ver', `data-rv="${d.id}"`) + RB('dl', 'Descargar', `data-rd="${d.id}"`) + RB('res', 'Restaurar', `data-rr="${d.id}"`) + (puedeBorrar() ? RB('bor', 'Borrar', `data-rbo="${d.id}"`) : '')
+    : RB('view', 'Ver', `data-rv="${d.id}"`) + RB('edit', 'Editar', `data-re="${d.id}"`) + RB('print', 'Imprimir', `data-rp="${d.id}"`) + RB('drive', 'Drive', `data-rg="${d.id}"`) + RB('dl', 'Descargar', `data-rd="${d.id}"`) + RB('del', 'Cancelar', `data-rc="${d.id}"`) + (puedeBorrar() ? RB('bor', 'Borrar', `data-rbo="${d.id}"`) : '');
 }
 function ultimosHTML(tipo) {
   const l = (D.pac.docs || []).filter(x => x.tipo === tipo && x.est !== 'nuevo').sort((a, b) => (b.fecha + b.hora).localeCompare(a.fecha + a.hora)).slice(0, 15);
@@ -2162,6 +2210,7 @@ async function accionRegistro(t, pac, enEditor) {
   if ((d = g('re'))) { if (enEditor && !await salirSinGuardar()) return true; editarRegistro(pac, d); return true; }
   if ((d = g('rc'))) { await cancelarDoc(pac.id, d); return true; }
   if ((d = g('rr'))) { restaurarDoc(pac.id, d.id); return true; }
+  if ((d = g('rbo'))) { await borrarDoc(pac.id, d); return true; }
   return false;
 }
 function aplicarPreset(i) {
@@ -2345,11 +2394,7 @@ html,body{margin:0;padding:0;background:#fff;color:#1b2536;font-family:Manrope,A
 .x-c{text-align:center;min-width:0}
 .x-nm{font-family:Lora,Georgia,serif;font-weight:700;font-size:20.5pt;color:${INK};line-height:1.12}
 .x-half .x-nm{font-size:16pt}
-.pinza{--h:.22in;display:flex;align-items:flex-start;height:var(--h);margin:3px auto 0;width:96%}
-.pinza .pz-m{height:var(--h);width:auto;flex:none;display:block}
-.pinza i{flex:1;min-width:20px;height:calc(var(--h) * 2.4 / 34);background:#5E5E5E;margin-top:calc(var(--h) * 2.8 / 34)}
-.pinza .pz-p{height:calc(var(--h) * 8 / 34);width:auto;flex:none;display:block}
-.x-half .pinza{--h:.18in}
+.pinza{display:block;width:96%;margin:4px auto 0;overflow:visible}
 .x-sb{font-weight:700;font-size:8.6pt;letter-spacing:.13em;color:${RED};text-transform:uppercase;margin-top:4px}
 .x-half .x-sb{font-size:7.3pt;margin-top:3px}
 .x-hs{font-size:9.4pt;color:#2b3a52;margin-top:5px}
@@ -2423,20 +2468,24 @@ html,body{margin:0;padding:0;background:#fff;color:#1b2536;font-family:Manrope,A
 .lst td{border-bottom:1px solid #E1E7EF;padding:5px 4px;vertical-align:top}.lst small{color:#666}
 `;
 /* Pinza de laparoscopia del logo: aros y mango azules, vástago gris que se estira, punta con mordazas */
-const PINZA_MANGO = '<svg viewBox="0 0 64 34" class="pz-m" aria-hidden="true"><path d="M4 4h30" stroke="#5E5E5E" stroke-width="5" stroke-linecap="round"/><rect x="11" y="1.2" width="9" height="5.6" rx="1" fill="#3A3A3A"/><path d="M8 7h22l4 3H14z" fill="#5E5E5E"/><path d="M15 9c-2 6-5 9-8 12" stroke="#5E5E5E" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M19 9l1 13" stroke="#5E5E5E" stroke-width="3.2" stroke-linecap="round"/><circle cx="5.5" cy="24.5" r="4.3" fill="none" stroke="#5E5E5E" stroke-width="2.4"/><circle cx="21" cy="27" r="4.3" fill="none" stroke="#5E5E5E" stroke-width="2.4"/><path d="M34 2.4h4l3 1.6-3 1.6h-4z" fill="#5E5E5E"/><path d="M41 4h23" stroke="#5E5E5E" stroke-width="2.4"/></svg>';
-const PINZA_PUNTA = '<svg viewBox="0 0 26 8" class="pz-p" aria-hidden="true"><path d="M0 4h8" stroke="#5E5E5E" stroke-width="2.4"/><rect x="8" y="2.4" width="4" height="3.2" fill="#3A3A3A"/><path d="M12 2.6l6 .8-6 .8zM12 4.6l6-.2-6 1z" fill="#5E5E5E"/><path d="M19 4h7" stroke="#5E5E5E" stroke-width="1" stroke-dasharray="1.2 1.6"/></svg>';
-const PINZA = `<div class="pinza">${PINZA_MANGO}<i></i>${PINZA_PUNTA}</div>`;
+/* Pinza de laparoscopia del logo, en una sola pieza: mango con aros, vástago recto y punta, todo en el gris del bisturí */
+const PINZA_G = '<path d="M4 4h30" stroke="#5E5E5E" stroke-width="5" stroke-linecap="round"/><rect x="11" y="1.2" width="9" height="5.6" rx="1" fill="#3A3A3A"/><path d="M8 7h22l4 3H14z" fill="#5E5E5E"/><path d="M15 9c-2 6-5 9-8 12" stroke="#5E5E5E" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M19 9l1 13" stroke="#5E5E5E" stroke-width="3.2" stroke-linecap="round"/><circle cx="5.5" cy="24.5" r="4.3" fill="none" stroke="#5E5E5E" stroke-width="2.4"/><circle cx="21" cy="27" r="4.3" fill="none" stroke="#5E5E5E" stroke-width="2.4"/><path d="M34 2.4h4l3 1.6-3 1.6h-4z" fill="#5E5E5E"/>';
+function pinzaSVG(h) {
+  const k = h / 34, y = (4 * k).toFixed(2), g = Math.max(1.1, 2.4 * k).toFixed(2);
+  return `<svg class="pinza" width="100%" height="${h}" aria-hidden="true" focusable="false"><g transform="scale(${k.toFixed(4)})">${PINZA_G}</g><line x1="${(40 * k).toFixed(2)}" y1="${y}" x2="97%" y2="${y}" stroke="#5E5E5E" stroke-width="${g}" stroke-linecap="round"/><svg x="97%" y="0" overflow="visible"><g transform="translate(${(-2 * k).toFixed(2)} 0) scale(${k.toFixed(4)})"><rect x="0" y="2.2" width="4" height="3.6" rx=".6" fill="#3A3A3A"/><path d="M4 2.4 11 3.6 4 4zM4 4.2 11 4.4 4 5.8z" fill="#5E5E5E"/></g></svg></svg>`;
+}
+const PINZA = pinzaSVG(17);
 const u = (v, cls) => `<u${cls ? ` class="${cls}"` : ''}>${esc(v || '')}</u>`;
 /* Encabezado del recetario. variante: 'larga' (carta) o 'media' (media carta) */
 function membrete(sedeId, variante) {
-  const p = perfil(), s = sedeDe(sedeId) || sedes().filter(x => x.activa !== false)[0] || null, larga = variante !== 'media';
+  const p = perfil(), s = sedeDe(sedeId) || null, larga = variante !== 'media';
   const tc = t => String(t || '').toLowerCase().replace(/(^|\s)(\S)/g, (m, a, b) => a + b.toUpperCase()).replace(/\b(De|Del|La|Las|Los|Y)\b/g, w => w.toLowerCase());
   const nombre = p.nombreCorto || p.nombre || '', cargo = p.especialidad || '', hosp = s ? tc(s.nombre) : (p.leyenda || '');
   const dir = (s && s.direccion) || p.direccion || '', tel = (s && s.telefono) || '';
   const cel = p.celular ? `<div class="x-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>${esc(p.celular)}</div>` : '';
   const sub = larga ? `<div class="x-sb">${esc(cargo)}</div>${cel}${hosp ? `<div class="x-hs">${esc(hosp)}</div>` : ''}` : `<div class="x-sb">${esc([cargo, hosp].filter(Boolean).join(' · '))}</div>${cel}`;
   const ico = sedeIcono(s);
-  return `<div class="x-hd">${ico ? `<div class="x-lg" style="background-image:url(${ico})"></div>` : '<div class="x-lg seal"></div>'}<div class="x-c"><div class="x-nm">${esc(nombre)}</div>${PINZA}${sub}</div><div class="x-lg crab"></div></div>
+  return `<div class="x-hd">${ico ? `<div class="x-lg" style="background-image:url(${ico})"></div>` : '<div class="x-lg seal"></div>'}<div class="x-c"><div class="x-nm">${esc(nombre)}</div>${pinzaSVG(larga ? 21 : 17)}${sub}</div><div class="x-lg crab"></div></div>
     <div class="x-rl"></div><div class="x-addr">${esc(dir)}${dir && tel ? '<i>•</i>' : ''}${tel ? 'Tel. ' + esc(tel) : ''}</div>`;
 }
 function piePagina(variante) {
@@ -2554,7 +2603,7 @@ async function ajustarRecetas(paginas) {
 async function maquetar(pac, docs) {
   const d = docs[0];
   if (d.tipo === 'receta') {
-    const c = d.c, modo = c.modo || 'solo', papel = (S.ses.prefs || {}).rxPapel || 'media';
+    const c = d.c, modo = c.modo || 'solo', papel = 'carta';
     if (modo === 'larga') return { html: await ajustarRecetas([hojaReceta(pac, d, c.r1, d.sede, true)]), page: '@page{size:letter;margin:0}' };
     const halves = [hojaReceta(pac, d, c.r1, d.sede)];
     if (modo === 'copia') halves.push(hojaReceta(pac, d, c.r1, d.sede));
@@ -2765,6 +2814,149 @@ document.addEventListener('click', e => {
   }
   ta.value = nuevo; ta.focus(); ta.setSelectionRange(selA, selZ); ta.dispatchEvent(new Event('input', { bubbles: true }));
 });
+
+/* =====================================================================
+   v1.01 · Formatos rápidos, borrar con permiso, sede por defecto, menú de cuenta,
+   buscador antes de agendar, estado rápido de citas, fechas y horas automáticas
+   ===================================================================== */
+const prefsJ = () => (S.ses && S.ses.prefs) || {};
+const puedeBorrar = () => !!prefsJ().borrar;
+const sedeDef = () => prefsJ().sedeDef || '';
+
+/* ---------- Borrar un documento por completo (solo si está permitido en Configuración) ---------- */
+async function borrarDoc(pacId, d) {
+  if (!puedeBorrar()) return;
+  if (!await ask({ title: 'Borrar ' + tituloDoc(d).toLowerCase(), text: 'Se borrará por completo del archivo clínico y no se puede deshacer. Si solo quieres invalidarlo, usa «Cancelar».', ok: 'Borrar', danger: true })) return;
+  const pac = mutarPac(pacId, p => { p.docs = (p.docs || []).filter(x => x.id !== d.id); p.borrados = (p.borrados || []).concat(d.id); }, { accion: 'borrar documento', detalle: d.tipo });
+  if ($('#dlgExp').open && X.pac && X.pac.id === pacId) { X.pac = clone(pac); pintaExp(true); }
+  if ($('#dlgDoc').open && D.pac && D.pac.id === pacId) { if (D.doc.id === d.id) $('#dlgDoc').close(); else { D.pac = clone(pac); pintaEditor(); } }
+  if ($('#dlgPac').open && H.pac && H.pac.id === pacId) { H.pac.docs = clone(pac.docs); hjResumen(); }
+  toast('Documento borrado', 'ok');
+}
+
+/* ---------- Acceso rápido a los formatos (desde Archivo Clínico) ---------- */
+const FMT_RAPIDO = [
+  ['Notas', [['nota', 'evol', 'Nota de evolución', 'nota'], ['nota', 'cons1', 'Consulta de primera vez', 'nota'], ['nota', 'cons2', 'Consulta subsecuente', 'nota'], ['nota', 'ingreso', 'Nota de ingreso', 'nota'], ['nota', 'interc', 'Nota de interconsulta', 'nota']]],
+  ['Cirugía', [['nota', 'preop', 'Nota preoperatoria', 'qx'], ['postqx', '', 'Nota postoperatoria', 'postqx'], ['consent', '', 'Consentimiento informado', 'sign']]],
+  ['Indicaciones y egreso', [['indic', '', 'Indicaciones médicas', 'indic'], ['alta', '', 'Nota de alta', 'alta']]],
+  ['Solicitudes y recetas', [['receta', '', 'Receta', 'receta'], ['lab', '', 'Laboratorio', 'lab'], ['gab', '', 'Gabinete', 'gab']]]
+];
+function formatosRapidos() {
+  let d = $('#dlgFmt');
+  if (!d) { d = document.createElement('dialog'); d.id = 'dlgFmt'; d.className = 'md'; d.innerHTML = '<div class="dlg" id="fmtRoot"></div>'; document.body.appendChild(d); }
+  const R = $('#fmtRoot'), todos = FMT_RAPIDO.flatMap(g => g[1]); let sel = -1;
+  const pasoFormato = () => {
+    R.innerHTML = `<div class="dlg-h"><div class="t"><b>Formatos</b><small>Elige el formato y después el paciente</small></div><button class="x" data-fx aria-label="Cerrar">✕</button></div>
+      <div class="dlg-b">${FMT_RAPIDO.map(([g, l]) => `<div class="fr-sub">${esc(g)}</div><div class="fr-g">${l.map(f => `<button type="button" class="fmt-i" data-t="${f[0]}" data-fr="${todos.indexOf(f)}"><span class="ti">${ic(f[3])}</span><b>${esc(f[2])}</b>${ic('chev')}</button>`).join('')}</div>`).join('')}</div>`;
+  };
+  const lista = q => {
+    const l = q.trim() ? buscarEn(S.lista, q).slice(0, 40) : S.lista.slice().sort((a, b) => String(b.mod).localeCompare(String(a.mod))).slice(0, 12);
+    $('#frL').innerHTML = (q.trim() ? '' : '<p class="muted fr-h">Recientes</p>') + (l.length ? l.map(p => `<button type="button" class="fr-p" data-fp="${p.id}"><b>${esc(p.m.n || 'SIN NOMBRE')}</b><small>${p.m.fn ? dmy(p.m.fn) + ' · ' + edad(p.m.fn) : ''}${p.m.dx ? ' · ' + esc(p.m.dx) : ''}</small></button>`).join('') : '<p class="muted fr-h">No aparece. Usa «Nuevo paciente».</p>');
+  };
+  const pasoPaciente = () => {
+    const f = todos[sel];
+    R.innerHTML = `<div class="dlg-h"><div class="t"><b>${esc(f[2])}</b><small>¿Para qué paciente?</small></div><button class="btn sm" data-fb>‹ Formatos</button><button class="x" data-fx aria-label="Cerrar">✕</button></div>
+      <div class="dlg-b"><label class="search">${ic('search')}<input type="search" id="frQ" placeholder="Buscar paciente por nombre, fecha o teléfono…" autocomplete="off"></label><div class="fr-l" id="frL"></div>
+      <button type="button" class="btn" data-fn style="margin-top:10px">${ic('plus')}Nuevo paciente</button></div>`;
+    $('#frQ').oninput = e => lista(e.target.value); lista(''); setTimeout(() => $('#frQ').focus(), 40);
+  };
+  R.onclick = e => {
+    const t = e.target;
+    if (t.closest('[data-fx]')) { d.close(); return; }
+    if (t.closest('[data-fb]')) { pasoFormato(); return; }
+    const fr = t.closest('[data-fr]'); if (fr) { sel = +fr.dataset.fr; pasoPaciente(); return; }
+    const fp = t.closest('[data-fp]'); if (fp) { const f = todos[sel]; d.close(); abrirDoc(fp.dataset.fp, f[0], f[1] ? { sub: f[1] } : {}); return; }
+    if (t.closest('[data-fn]')) { d.close(); nuevoPaciente(($('#frQ') || {}).value || ''); }
+  };
+  pasoFormato(); openDlg(d);
+}
+
+/* ---------- Agenda: primero el buscador de pacientes; si no está, «Nuevo paciente» abre todo el formulario ---------- */
+function citaBuscar(tipo, pre) {
+  const d = $('#dlgCita'), root = $('#citaRoot');
+  root.innerHTML = `<div class="dlg-h"><div class="t"><b>${tipo === 'quirofano' ? 'Programar cirugía' : 'Agendar consulta'}</b><small>Busca al paciente</small></div><button class="x" data-x aria-label="Cerrar">✕</button></div>
+    <div class="dlg-b"><label class="search big">${ic('search')}<input type="search" id="cbQ" placeholder="Nombre, fecha de nacimiento o teléfono…" autocomplete="off"></label><div class="fr-l" id="cbL"></div>
+    <button type="button" class="btn pri" data-cbn style="margin-top:12px">${ic('plus')}Nuevo paciente</button></div>`;
+  const lista = () => { const q = $('#cbQ').value, l = q.trim() ? buscarEn(S.lista, q).slice(0, 30) : [];
+    $('#cbL').innerHTML = q.trim() ? (l.length ? l.map(p => `<button type="button" class="fr-p" data-cbp="${p.id}"><b>${esc(p.m.n || 'SIN NOMBRE')}</b><small>${p.m.fn ? dmy(p.m.fn) + ' · ' + edad(p.m.fn) : ''}${p.m.t ? ' · ' + esc(p.m.t) : ''}${p.m.dx ? ' · ' + esc(p.m.dx) : ''}</small></button>`).join('') : '<p class="muted fr-h">No aparece. Toca «Nuevo paciente».</p>') : '<p class="muted fr-h">Escribe para buscar al paciente.</p>'; };
+  $('#cbQ').oninput = lista; lista();
+  root.onclick = ev => {
+    if (ev.target.closest('[data-x]')) { d.close(); return; }
+    const p = ev.target.closest('[data-cbp]'); if (p) { abrirCita(tipo, null, Object.assign({}, pre, { pac: p.dataset.cbp, _directo: true })); return; }
+    if (ev.target.closest('[data-cbn]')) abrirCita(tipo, null, Object.assign({}, pre, { _directo: true }));
+  };
+  openDlg(d); setTimeout(() => $('#cbQ').focus(), 50);
+}
+async function citaPrellenar(id) {
+  try { const dd = (await leerPac(id)).datos || {};
+    const pon = (s, v) => { const el = $(s); if (el && !el.value) el.value = v || ''; };
+    pon('#ciAp', dd.apPaterno); pon('#ciAm', dd.apMaterno); pon('#ciNo', dd.nombres); pon('#ciFn', dmy(dd.fnac || '')); pon('#ciTel', dd.tel1); pon('#ciDx', dd.dx);
+  } catch (_) { }
+}
+
+/* ---------- Estado rápido de una cita: se toca la etiqueta del estado ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-agest]');
+  const m0 = $('#estMenu'); if (m0 && !e.target.closest('#estMenu')) m0.remove();
+  if (!b) return;
+  e.stopPropagation();
+  const tipo = b.closest('[data-tipo]').dataset.tipo, it = agItem(tipo, b.dataset.agest); if (!it) return;
+  const T = AGT[tipo], m = document.createElement('div'); m.id = 'estMenu'; m.className = 'est-menu';
+  m.innerHTML = T.est.map(([k, l]) => `<button type="button" data-ek="${k}" class="${(it.est || T.estIni) === k ? 'on' : ''}"><i class="chip ${EST_CHIP[k] || ''}"></i>${l}</button>`).join('');
+  document.body.appendChild(m);
+  const r = b.getBoundingClientRect(); m.style.top = Math.min(innerHeight - m.offsetHeight - 8, r.bottom + 6) + 'px'; m.style.left = Math.min(innerWidth - m.offsetWidth - 8, r.left) + 'px';
+  m.onclick = async ev => { const x = ev.target.closest('[data-ek]'); if (!x) return; m.remove(); const k = x.dataset.ek; if (k === (it.est || T.estIni)) return;
+    const set = { est: k };
+    if (k === 'cancelada' || k === 'noasistio') { const mot = await ask({ title: 'Motivo', input: k === 'cancelada' ? 'Motivo de la cancelación' : 'Motivo de la inasistencia (opcional)', ok: 'Guardar', cancel: 'Sin motivo' }); if (mot) set.motCanc = String(mot).toUpperCase(); }
+    cambiarAg(tipo, [{ id: it.id, set, a: 'Estado: ' + (T.est.find(z => z[0] === k) || [0, k])[1] }]).catch(() => { }); toast('Estado actualizado', 'ok'); };
+}, true);
+
+/* ---------- Fechas DD.MM.AA y horas HH:MM: los puntos y los dos puntos se ponen solos ---------- */
+const esCampoFecha = el => el && el.tagName === 'INPUT' && (el.dataset.date !== undefined || /DD\.MM\.AA/i.test(el.placeholder || '') || /^(ciF|ciFn)$/.test(el.id));
+const esCampoHora = el => el && el.tagName === 'INPUT' && el.dataset.hora !== undefined;
+document.addEventListener('input', e => {
+  const el = e.target, borra = /^delete/.test(e.inputType || '');
+  if (borra) return;
+  if (esCampoFecha(el)) { const dg = el.value.replace(/\D/g, '').slice(0, 6); el.value = dg.length > 4 ? dg.slice(0, 2) + '.' + dg.slice(2, 4) + '.' + dg.slice(4) : dg.length > 2 ? dg.slice(0, 2) + '.' + dg.slice(2) : dg; }
+  else if (esCampoHora(el)) { const dg = el.value.replace(/\D/g, '').slice(0, 4); el.value = dg.length > 2 ? dg.slice(0, 2) + ':' + dg.slice(2) : dg; }
+}, true);
+document.addEventListener('blur', e => { const el = e.target; if (!esCampoHora(el) || !el.value) return; const m = /^(\d{1,2}):?(\d{2})?$/.exec(el.value.trim());
+  if (m && +m[1] < 24 && +(m[2] || 0) < 60) el.value = String(+m[1]).padStart(2, '0') + ':' + (m[2] || '00'); else { toast('Hora no válida (HH:MM)', 'warn'); } }, true);
+const aHoraTexto = el => { el.type = 'text'; el.dataset.hora = ''; el.placeholder = 'HH:MM'; el.maxLength = 5; el.inputMode = 'numeric'; el.autocomplete = 'off'; };
+new MutationObserver(() => document.querySelectorAll('input[type=time]').forEach(aHoraTexto)).observe(document.documentElement, { childList: true, subtree: true });
+
+/* ---------- Cuenta: la foto de Google es un botón con el menú de cierre de sesión ---------- */
+const cuentaG = () => { try { return JSON.parse(localStorage.getItem('jcf-cuenta') || '{}'); } catch (_) { return {}; } };
+function guardaCuenta(cred) {
+  try { const p = cred.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); const o = JSON.parse(decodeURIComponent(escape(atob(p + '==='.slice((p.length + 3) % 4)))));
+    localStorage.setItem('jcf-cuenta', JSON.stringify({ foto: o.picture || '', nombre: o.name || '', email: o.email || '' })); } catch (_) { }
+}
+function menuCuenta() {
+  const av = $('#hAv'); if (!av || av.dataset.menu) return; av.dataset.menu = 1;
+  av.setAttribute('role', 'button'); av.tabIndex = 0; av.title = 'Tu cuenta';
+  const m = document.createElement('div'); m.className = 'acct-m'; m.hidden = true; m.setAttribute('role', 'menu'); document.body.appendChild(m);
+  const pinta = () => { const c = cuentaG(), nm = c.nombre || (S.ses && S.ses.nombre) || 'Cuenta de Google', em = c.email || (S.ses && S.ses.email) || '';
+    m.innerHTML = `<div class="acct-h">${c.foto ? `<img src="${esc(c.foto)}" referrerpolicy="no-referrer" alt="">` : `<span>${esc(norm(nm).split(' ').map(w => w[0]).slice(0, 2).join(''))}</span>`}<div><b>${esc(nm)}</b><small>${esc(em)}</small></div></div>
+      <a href="https://accounts.google.com/Logout" target="_blank" rel="noopener" data-acct="gout" role="menuitem">${ic('user')}Cerrar sesión de Google en navegador</a>
+      <button type="button" data-acct="out" role="menuitem">${ic('lock')}Cerrar sesión</button>`; };
+  const abre = () => { pinta(); const r = av.getBoundingClientRect(); m.style.top = (r.bottom + 8) + 'px'; m.style.right = Math.max(8, innerWidth - r.right) + 'px'; m.hidden = false; };
+  av.onclick = e => { e.stopPropagation(); if (m.hidden) abre(); else m.hidden = true; };
+  av.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); av.click(); } };
+  document.addEventListener('click', e => { if (!m.hidden && !e.target.closest('.acct-m')) m.hidden = true; });
+  m.onclick = async e => { const b = e.target.closest('[data-acct]'); if (!b) return; m.hidden = true;
+    if (b.dataset.acct === 'out' && await ask({ title: 'Cerrar sesión', text: 'Se cierra la sesión solo en esta aplicación; tu cuenta de Google sigue abierta.', ok: 'Cerrar sesión' })) salir(); };
+}
+
+/* ---------- Perfil y membrete, en secciones ---------- */
+const PERFIL_SEC = [
+  ['Nombre', 'Así aparece en el encabezado y en el pie de cada documento.', [['nombre', 'Nombre completo', 'Dr. Nombre Apellidos', 6]]],
+  ['Encabezado', 'Debajo de tu nombre en el membrete.', [['especialidad', 'Título', 'Cirujano General y Laparoscopia Avanzada', 4], ['celular', 'Teléfono', '10 dígitos', 2]]],
+  ['Pie de página', 'Junto a la línea de firma.', [['residencia', 'Residencia (en rojo)', 'Residente de …', 6], ['especialidadCorta', 'Especialidad', 'Especialidad en …', 3], ['cedulas', 'Cédula profesional', 'Solo el número', 3], ['formacion', 'Universidad', 'Universidad …', 6]]],
+  ['Sin lugar de trabajo', 'Solo se usa cuando el documento no tiene sede.', [['leyenda', 'Texto bajo el título', '', 3], ['direccion', 'Dirección', '', 3]]]
+];
+function perfilHTML(p) {
+  return PERFIL_SEC.map(([t, h, f]) => `<div class="pf-sec"><h6>${t}</h6><p class="muted">${h}</p><div class="grid">${f.map(([k, l, ph, w]) => `<div class="f s${w}"><label>${l}</label><input data-pf="${k}" value="${esc(p[k] || (k === 'nombre' ? p.nombreCorto || '' : ''))}" placeholder="${esc(ph)}"></div>`).join('')}</div></div>`).join('');
+}
 
 /* =====================================================================
    ESTUDIOS Y ARCHIVOS DEL PACIENTE
@@ -3075,13 +3267,12 @@ function pnCfg() {
   const C = $('#cfB');
   if (PN.cfg === 'perfil') {
     const p = s.perfil || {};
-    C.innerHTML = `<div class="panel-sec"><h5>Datos del médico titular</h5><p class="muted" style="font-size:12.5px;margin:-6px 0 12px">Se guardan en el servidor (no en la página) y aparecen en el encabezado, notas, indicaciones, recetas y solicitudes.</p>
-      <div class="grid">${PERFIL_F.map(([k, l, ph, w]) => `<div class="f s${w}"><label>${l}</label><input data-pf="${k}" value="${esc(p[k] || '')}" placeholder="${esc(ph)}"></div>`).join('')}</div>
-      <div style="margin-top:14px;display:flex;gap:8px"><button class="btn pri" id="pfSave">${ic('save')}Guardar perfil</button><button class="btn" id="pfPrev">${ic('print')}Vista previa del membrete</button></div></div>`;
-    const leer = () => { const o = {}; $$('[data-pf]', C).forEach(e => o[e.dataset.pf] = e.value.trim()); return o; };
+    C.innerHTML = `<div class="panel-sec"><h5>Perfil y membrete</h5><p class="muted" style="font-size:12.5px;margin:-4px 0 12px">Se guardan en tu servidor y aparecen en el encabezado y el pie de todos tus documentos.</p>${perfilHTML(p)}
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" id="pfSave">${ic('save')}Guardar perfil</button><button class="btn" id="pfPrev">${ic('eye')}Ver cómo queda</button></div></div>`;
+    const leer = () => { const o = Object.assign({}, s.perfil || {}); $$('[data-pf]', C).forEach(e => o[e.dataset.pf] = e.value.trim()); o.nombreCorto = o.nombre; return o; };
     $('#pfSave').onclick = () => cfgGuardar({ perfil: leer() });
     $('#pfPrev').onclick = () => { const bk = S.ses.perfil; S.ses.perfil = leer(); const pac = { datos: { apPaterno: 'PACIENTE', nombres: 'DE PRUEBA', fnac: '1980-01-01', sexo: 'F' } };
-      imprimirDoc(pac, { tipo: 'receta', fecha: hoyISO(), hora: ahoraHM(), sede: '', est: 'firmado', sv: { peso: '70', talla: '1.65', ta: '120/80' }, c: { modo: 'otro', r1: 'PARACETAMOL 500 MG TABLETAS\nTOMAR 1 TABLETA CADA 8 HORAS POR 5 DÍAS', r2: 'Vista previa de la mitad inferior', sede2: (sedes()[0] || {}).id || '' } }); S.ses.perfil = bk; };
+      verDoc(pac, { tipo: 'receta', fecha: hoyISO(), hora: ahoraHM(), sede: sedeDef(), est: 'firmado', sv: { peso: '70', talla: '1.65', ta: '120/80' }, c: { modo: 'otro', r1: 'PARACETAMOL 500 MG TABLETAS\nTOMAR 1 TABLETA CADA 8 HORAS POR 5 DÍAS', r2: 'Vista previa de la mitad inferior', sede2: (sedes()[0] || {}).id || '' } }); S.ses.perfil = bk; };
   }
   if (PN.cfg === 'sedes') {
     C.innerHTML = `<div class="panel-sec"><div style="display:flex;align-items:center;margin-bottom:10px"><h5 style="margin:0;flex:1">Hospitales, clínicas y consultorios</h5><button class="btn sm pri" id="sdAdd">${ic('plus')}Agregar lugar</button></div>
@@ -3118,10 +3309,12 @@ function pnCfg() {
   }
   if (PN.cfg === 'pref') {
     const pr = s.prefs || {};
-    C.innerHTML = `<div class="panel-sec"><h5>Impresión de recetas</h5><div class="halfseg" id="rxP">${[['media', 'Recetario: hoja de media carta'], ['carta', 'Recetario: mitad superior de hoja carta']].map(([k, l]) => `<button data-v="${k}" class="${(pr.rxPapel || 'media') === k ? 'on' : ''}">${l}</button>`).join('')}</div><p class="muted" style="font-size:12.5px;margin:8px 0 0">La receta doble y la larga siempre van en hoja carta.</p></div>
+    C.innerHTML = `<div class="panel-sec"><h5>Lugar de trabajo por defecto</h5><p class="muted" style="font-size:12.5px;margin:-4px 0 10px">Si eliges uno, todos los documentos y citas nuevos lo usan. Si no, salen «Sin sede» y lo eliges en cada uno.</p><select id="sdDef" class="cfg-sel">${sedeOpts(pr.sedeDef || '', null, '— Sin sede por defecto —')}</select></div>
+      <div class="panel-sec"><h5>Borrar entradas</h5><p class="muted" style="font-size:12.5px;margin:-4px 0 10px">Muestra el botón «Borrar» en el archivo clínico. Borrar quita el documento por completo; «Cancelar» lo conserva marcado como cancelado.</p><label class="chk"><input type="checkbox" id="cfBor"${pr.borrar ? ' checked' : ''}> Permitir borrar entradas</label></div>
       <div class="panel-sec"><h5>Google Calendar</h5><p class="muted" style="font-size:12.5px;margin:0 0 12px">Elige en qué calendario de tu cuenta se copia cada agenda. Cada cambio se refleja al instante; las citas canceladas o sin fecha se quitan del calendario.</p><div class="grid" id="calSel" style="margin-bottom:12px"><p class="muted" style="margin:0">Cargando tus calendarios…</p></div><button class="btn" id="calSync">${ic('cal')}Sincronizar todo con Google Calendar</button></div><div class="panel-sec"><h5>Acceso</h5><p class="muted" style="font-size:12.5px;margin:0">Uso personal: el servidor verifica con Google cada inicio de sesión y solo acepta tu cuenta (la dueña del script). Después entrega un pase firmado de 30 días.</p></div>
       <div class="panel-sec"><h5>Acerca de</h5><p class="muted" style="font-size:12.5px;margin:0">Versión de la página ${APP_VERSION} · Servidor ${esc(s.version || '')}</p></div>`;
-    $$('#rxP [data-v]', C).forEach(b => b.onclick = () => cfgGuardar({ prefs: Object.assign({}, pr, { rxPapel: b.dataset.v }) }));
+    $('#sdDef').onchange = e => cfgGuardar({ prefs: Object.assign({}, pr, { sedeDef: e.target.value }) });
+    $('#cfBor').onchange = e => cfgGuardar({ prefs: Object.assign({}, pr, { borrar: e.target.checked }) });
     $('#calSync').onclick = async () => { $('#calSync').disabled = true; try { const r = await call('dcCalendarioSincronizar'); toast(r.n + ' citas sincronizadas con Google Calendar', 'ok'); await refrescarAgendas(); } catch (e) { toast(e.message, 'bad'); } $('#calSync').disabled = false; };
     (async () => { const B = $('#calSel'); try { const r = await call('dcCalendarios');
       const sel = (t, l) => `<div class="f s3"><label>${l}</label><select data-cal="${t}" style="width:100%;border:1px solid var(--line2);border-radius:9px;padding:8px"><option value="nuevo"${!r[t] ? ' selected' : ''}>Crear uno nuevo («${t === 'quirofano' ? 'Quirófano' : 'Consulta externa'} · JCF»)</option><option value="off"${r[t] === 'off' ? ' selected' : ''}>No sincronizar</option>${r.lista.map(c => `<option value="${esc(c.id)}"${r[t] === c.id ? ' selected' : ''}>${esc(c.nombre)}${c.mio ? '' : ' (compartido)'}</option>`).join('')}</select></div>`;
