@@ -630,6 +630,7 @@ textarea.grow{overflow:hidden;resize:none}
 .est-menu{position:fixed;z-index:80;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 30px -14px rgba(20,43,74,.45);padding:6px;min-width:170px}
 .est-menu button{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border:0;background:none;border-radius:8px;text-align:left;font-size:13.5px}
 .est-menu button:hover,.est-menu button.on{background:#F4F6F9}.est-menu button.on{font-weight:700}.est-menu .chip{width:10px;height:10px;padding:0;border-radius:50%;display:inline-block}
+.cal-st{display:block;font-size:12px;margin-top:5px;color:var(--mute)}.cal-st.ok{color:var(--ok)}.cal-st.bad{color:var(--bad)}
 .cfg-sel{width:100%;max-width:460px;border:1px solid var(--line2);border-radius:10px;padding:9px 10px;background:#fff}
 .pf-sec{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#FBFCFD}
 .pf-sec h6{margin:0 0 2px;font-size:13.5px;color:var(--navy)}.pf-sec p{font-size:12px;margin:0 0 10px}
@@ -3206,6 +3207,7 @@ async function pnEst() {
   const kpi = (v, l, s) => `<div class="kpi"><b>${v}</b><span>${l}</span>${s ? `<small>${s}</small>` : ''}</div>`;
   let docs = null; try { docs = await call('dcEstadisticas', a, b); } catch (_) { }
   const DL = { nota: 'Notas médicas', indic: 'Indicaciones', postqx: 'Notas postoperatorias', alta: 'Notas de alta', receta: 'Recetas', lab: 'Solicitudes de laboratorio', gab: 'Solicitudes de gabinete', hc: 'Historias clínicas' };
+  if (!$('#pnE')) return;
   $('#pnE').innerHTML = `<div class="panel-sec"><h5>Consulta externa</h5><div class="kpis">${kpi(cTot, 'Consultas agendadas')}${kpi(cAt, 'Atendidas', pct(cAt, cTot) + ' de las agendadas')}${kpi(cnt(C, e => e.tc === 'PRIMERA VEZ' && e.est !== 'cancelada'), 'Primera vez')}${kpi(cnt(C, e => e.tc === 'SUBSECUENTE' && e.est !== 'cancelada'), 'Subsecuentes')}${kpi(cNa, 'No asistieron', pct(cNa, cTot))}${kpi(cCa, 'Canceladas')}</div></div>
   <div class="panel-sec"><h5>Quirófano</h5><div class="kpis">${kpi(qPr, 'Cirugías programadas')}${kpi(qRe, 'Realizadas', pct(qRe, qPr))}${kpi(cnt(Q, e => e.tcx === 'URGENCIA' && e.est !== 'cancelada'), 'Urgencias')}${kpi(cnt(Q, e => e.tcx === 'ELECTIVA' && e.est !== 'cancelada'), 'Electivas')}${kpi(qCa, 'Canceladas')}${kpi(cnt(Object.values(S.ag.quirofano.items), e => !e.fecha && !['cancelada', 'realizada'].includes(e.est)), 'Pendientes de fecha', 'al día de hoy')}</div></div>
   <div class="panel-sec"><h5>Pacientes y hospitalización</h5><div class="kpis">${kpi(S.lista.length, 'Pacientes en archivo')}${kpi(nuevos, 'Pacientes nuevos')}${kpi(cnt(L, m => m.h), 'Hospitalizados ahora')}${kpi(ing, 'Ingresos')}${kpi(egr, 'Egresos')}${kpi(est.length ? (est.reduce((x, y) => x + y, 0) / est.length).toFixed(1) : '—', 'Estancia media (días)')}</div></div>
@@ -3368,7 +3370,7 @@ function pnCfg() {
     (async () => { const B = $('#calSel'); try { const r = await call('dcCalendarios');
       const sel = (t, l) => `<div class="f s3"><label>${l}</label><select data-cal="${t}" style="width:100%;border:1px solid var(--line2);border-radius:9px;padding:8px"><option value="nuevo"${!r[t] ? ' selected' : ''}>Crear uno nuevo («${t === 'quirofano' ? 'Quirófano' : 'Consulta externa'} · JCF»)</option><option value="off"${r[t] === 'off' ? ' selected' : ''}>No sincronizar</option>${r.lista.map(c => `<option value="${esc(c.id)}"${r[t] === c.id ? ' selected' : ''}>${esc(c.nombre)}${c.mio ? '' : ' (compartido)'}</option>`).join('')}</select></div>`;
       B.innerHTML = sel('quirofano', 'Agenda de Quirófano →') + sel('consulta', 'Agenda de Consulta →');
-      $$('[data-cal]', B).forEach(s => s.onchange = async () => { s.disabled = true; try { const x = await call('dcCalendarioElegir', s.dataset.cal, s.value); toast(x.id === 'off' ? 'Sincronización desactivada' : 'Se usará «' + x.nombre + '». Toca «Sincronizar todo» para copiar las citas existentes.', 'ok'); } catch (e) { toast(e.message, 'bad'); } s.disabled = false; });
+      $$('[data-cal]', B).forEach(s => s.onchange = async ev => { ev.stopPropagation(); const st = s.parentNode.querySelector('.cal-st') || s.insertAdjacentElement('afterend', Object.assign(document.createElement('small'), { className: 'cal-st' })); st.className = 'cal-st'; st.textContent = 'Guardando…'; s.disabled = true; try { const x = await call('dcCalendarioElegir', s.dataset.cal, s.value); st.classList.add('ok'); st.textContent = x.id === 'off' ? 'Sin sincronizar' : '✓ Guardado: «' + x.nombre + '». Toca «Sincronizar todo» para copiar las citas existentes.'; } catch (e) { st.classList.add('bad'); st.textContent = 'No se pudo guardar: ' + e.message; } s.disabled = false; });
     } catch (e) { B.innerHTML = `<p class="muted" style="margin:0">${esc(e.message)}</p>`; } })();
   }
   if (PN.cfg === 'bit') {
