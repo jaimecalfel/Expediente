@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="application-version" content="1.01">
+<meta name="application-version" content="1.02">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <title>Dr. Jaime Caldera Félix · Expediente clínico</title>
@@ -665,6 +665,72 @@ nav.tabs .cnt{background:#FCE9E9;color:var(--red)}
 .fmt-i[data-t=receta]{--c:var(--red);--t:#FCECEC}
 :focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 @media (max-width:640px){.crab{display:none}.brand{text-align:left}.brand h1{font-size:21px}.brand p{font-size:9.5px;letter-spacing:.06em;white-space:normal;line-height:1.3}.seal{width:46px;height:46px}}
+/* ===================== v1.02 · Diseño «vidrio» (tarjetas translúcidas, widgets en píldora, navegación flotante) ===================== */
+:root{--accent:#2E86F5;--accent-d:#1F6FD8;--glass:rgba(255,255,255,.58);--glass2:rgba(255,255,255,.74);--glass-b:rgba(255,255,255,.7);--glass-sh:0 18px 40px -24px rgba(25,40,60,.45);--rad:24px;--ink:#18222F}
+html,body{background:#DCE3E8}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 640px at 12% 8%,rgba(196,214,226,.95),transparent 70%),radial-gradient(760px 560px at 88% 12%,rgba(236,222,203,.9),transparent 70%),
+  radial-gradient(900px 700px at 70% 90%,rgba(184,205,200,.85),transparent 70%),radial-gradient(700px 600px at 10% 95%,rgba(214,206,226,.7),transparent 70%),linear-gradient(160deg,#E9EEF1,#D3DCE2)}
+.glassy,header.top,.card,.prow,.mes-ag,.ent,.xdoc,.box,.panel-sec,.bigsearch .search,.tools .sel,.tools .search,.dbl-bar,.pf-sec,.side-card{background:var(--glass)!important;-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);border:1px solid var(--glass-b)!important;box-shadow:var(--glass-sh)}
+/* cabecera flotante con widgets */
+header.top{margin:12px var(--gut) 0;border-radius:var(--rad);min-height:72px;padding:8px 14px;gap:12px}
+header.top::after{display:none}
+.brand{text-align:left;flex:0 1 auto}
+.brand h1{font-size:22px}.brand p{font-size:10px}
+.hd-chips{display:flex;gap:8px;align-items:stretch;flex:1;justify-content:flex-end;min-width:0}
+.hc{display:flex;align-items:center;gap:10px;background:var(--glass2);border:1px solid var(--glass-b);border-radius:18px;padding:6px 14px;min-width:0;cursor:default}
+.hc small{display:block;font-size:11px;color:#5B6878;white-space:nowrap}.hc b{display:block;font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-.3px;line-height:1.1;white-space:nowrap}
+.hc.hc-hoy{cursor:pointer}.hc.hc-hoy b{font-size:14px}.hc.hc-hoy:hover{background:#fff}
+.hc .ring{width:34px;height:34px;border-radius:50%;flex:none;background:conic-gradient(#2FBF71 var(--p,0%),rgba(0,0,0,.08) 0);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--ink)}
+.hc .ring i{width:26px;height:26px;border-radius:50%;background:var(--glass2);display:grid;place-items:center;font-style:normal}
+.crab{display:none}
+.who .n{display:none}
+.av{width:42px!important;height:42px!important;border:0!important;background:linear-gradient(135deg,#F5E3B3,#E9C98A)!important;color:#5A4210!important;box-shadow:0 0 0 2px #fff}
+/* títulos grandes */
+.titlebar{background:transparent!important;border:0!important;box-shadow:none!important}
+.titlebar h2{font-family:var(--sans)!important;font-weight:600!important;font-size:34px!important;letter-spacing:-.8px;color:var(--ink)!important}
+/* navegación: PC columna flotante a la izquierda */
+@media (min-width:1025px){
+  body:not(.locked){padding-left:86px}
+  nav.tabs{position:fixed!important;left:16px;top:50%;transform:translateY(-50%);flex-direction:column;justify-content:center;gap:10px;padding:10px;border-radius:999px;background:var(--glass)!important;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border:1px solid var(--glass-b)!important;box-shadow:var(--glass-sh);z-index:30;overflow:visible}
+  nav.tabs .sep{display:none}
+  nav.tabs button{width:50px;height:50px;padding:0!important;border-radius:50%!important;justify-content:center;border:0!important;background:var(--glass2);position:relative}
+  nav.tabs button .tl{position:absolute;left:62px;top:50%;transform:translateY(-50%);background:#1F2530;color:#fff;font-size:12px;padding:5px 10px;border-radius:10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+  nav.tabs button:hover .tl{opacity:1}
+  nav.tabs button .ic{width:22px;height:22px;color:#3A4757}
+  nav.tabs button.on{background:var(--accent)!important;box-shadow:0 8px 18px -8px rgba(46,134,245,.8)}nav.tabs button.on .ic{color:#fff!important}
+}
+/* navegación: celular y Z Fold, píldora flotante abajo */
+@media (max-width:1024px){
+  nav.tabs{left:12px!important;right:12px!important;bottom:calc(10px + env(safe-area-inset-bottom))!important;border-radius:999px!important;padding:6px!important;background:var(--glass)!important;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border:1px solid var(--glass-b)!important;box-shadow:0 14px 34px -16px rgba(25,40,60,.55)!important}
+  nav.tabs button{border-radius:999px!important;padding:7px 4px!important}
+  nav.tabs button.on{background:#1F2530!important;color:#fff!important}nav.tabs button.on .ic{color:#fff!important}
+  header.top{margin:10px 10px 0;border-radius:20px}
+  .hd-chips{display:none}
+}
+@media (min-width:641px) and (max-width:1024px){.hd-chips{display:flex}.hc.hc-hoy{display:none}}
+/* segmentados: el activo en oscuro, como «Faces | Devices» */
+.seg{background:rgba(255,255,255,.5)!important;border:1px solid var(--glass-b)!important;border-radius:999px!important;padding:4px!important}
+.seg button{border-radius:999px!important}
+.seg button.on{background:#1F2530!important;color:#fff!important;box-shadow:none!important}
+/* botones e interruptores */
+.btn{border-radius:999px!important}
+.btn.pri{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important;box-shadow:0 8px 18px -10px rgba(46,134,245,.9)!important}
+.btn.pri:hover{background:var(--accent-d)!important}
+input[type=checkbox]{accent-color:var(--accent)}
+.prow,.ent,.xdoc,.card,.mes-ag,.box,.panel-sec{border-radius:var(--rad)!important}
+.mc{background:rgba(255,255,255,.55)!important;border-color:var(--glass-b)!important;border-radius:14px!important}
+.mc.t{border-color:var(--accent)!important;box-shadow:inset 0 0 0 1px var(--accent)!important}.mc.t b{color:var(--accent)!important}
+/* campos */
+input:not([type=checkbox]):not([type=color]):not([type=range]),select,textarea{border-radius:14px!important}
+/* ventanas flotantes */
+dialog::backdrop{background:rgba(20,30,45,.28);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+dialog .dlg{background:rgba(246,248,250,.86)!important;-webkit-backdrop-filter:blur(26px) saturate(1.3);backdrop-filter:blur(26px) saturate(1.3)}
+dialog:not(.sm) .dlg,#dlgAsk .dlg{border-radius:26px}
+.dlg-h{background:transparent!important}
+.appft{background:rgba(255,255,255,.55)!important;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:0!important;border-top:1px solid var(--glass-b)!important}
+@media (min-width:1025px){.appft{left:86px!important}}
+
 </style>
 </head>
 <body>
@@ -716,7 +782,7 @@ nav.tabs .cnt{background:#FCE9E9;color:var(--red)}
    Todo (nombre del médico, cédulas, sedes, pacientes, agenda) llega desde el
    servidor de Google Apps Script (Codigo.gs) después de iniciar sesión con Google.
    ===================================================================== */
-const APP_VERSION = '1.01', APP_FECHA = '23.11.26';
+const APP_VERSION = '1.02', APP_FECHA = '26.11.26';
 const API_URL = 'https://script.google.com/macros/s/AKfycbz_9hfMddP7shfJWesMulZP3dqdAww2TQ6K386NTv4G4f05IHDHQ-OkxTcm-BYProeg/exec';   // enlace /exec personal
 const CLIENT_ID = '326061599193-1udphb9fgu5ss463i4mcnom7f7tf6cmb.apps.googleusercontent.com';   // ID de cliente OAuth (proyecto Expediente JCF)
 
@@ -972,6 +1038,7 @@ function go(t) {
   const tt = TABS.find(x => x[0] === t) || []; $('#ttl').innerHTML = (tt[2] ? `<span class="ttl-ic">${ic(tt[2])}</span>` : '') + esc(tt[3] || '');
   if (t === 'consulta' || t === 'quirofano') { AGS[t].vista = 'mes'; AGS[t].todos = false; AGS[t].mes = null; }
   (VIEWS[t] || (() => { }))();
+  if (window.chipsPinta) chipsPinta();
 }
 document.addEventListener('click', e => { const b = e.target.closest('#tabs [data-tab]'); if (b) go(b.dataset.tab); });
 
@@ -1430,6 +1497,7 @@ function cambiarAg(tipo, cambios) {
   AG_PEND[tipo]++; PENDIENTES++; syncPill();
   const p = AG_COLA[tipo].catch(() => { }).then(async () => {
     for (let n = 0; ; n++) {
+      if (window.chipsPinta) chipsPinta();
       try { const r = await call('dcAgendaCambiar', tipo, cambios); if (AG_PEND[tipo] === 1) { S.ag[tipo] = r; if (S.tab === tipo && !ocupado()) pintaAgenda(tipo); } return r; }
       catch (e) { if (n >= 3) { toast('No se pudo guardar el cambio en la agenda: ' + e.message, 'bad'); refrescarAgendas(); throw e; } await sleep(1500 * (n + 1)); }
     }
@@ -3008,6 +3076,27 @@ document.addEventListener('keydown', e => {
   }
 });
 
+/* ---------- v1.02 · Widgets de la cabecera: fecha y hora, y pacientes de hoy ---------- */
+function chipsCabecera() {
+  const h = $('header.top'); if (!h || $('#hdChips')) return;
+  h.querySelector('.brand').insertAdjacentHTML('afterend', `<div class="hd-chips" id="hdChips">
+    <div class="hc hc-hoy" id="hcHoy" role="button" tabindex="0" title="Ver la agenda de hoy"><span class="ring"><i></i></span><div><small>Hoy</small><b></b></div></div>
+    <div class="hc" id="hcHora"><div><small></small><b></b></div></div></div>`);
+  const pinta = () => {
+    const d = new Date(), h0 = hoyISO();
+    $('#hcHora small').textContent = DIAS[d.getDay()] + ' ' + dmy(isoOf(d));
+    $('#hcHora b').textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    const hoy = t => Object.values(((S.ag || {})[t] || {}).items || {}).filter(e => e && e.fecha === h0 && e.est !== 'cancelada');
+    const c = hoy('consulta'), q = hoy('quirofano'), tot = c.length + q.length;
+    const hechas = c.filter(e => e.est === 'atendida').length + q.filter(e => e.est === 'realizada').length;
+    $('#hcHoy b').textContent = c.length + (c.length === 1 ? ' consulta' : ' consultas') + ' · ' + q.length + (q.length === 1 ? ' cirugía' : ' cirugías');
+    const r = $('#hcHoy .ring'); r.style.setProperty('--p', (tot ? Math.round(hechas * 100 / tot) : 0) + '%'); r.querySelector('i').textContent = tot ? hechas + '/' + tot : '0';
+  };
+  const abre = () => { const c = Object.values(((S.ag || {}).consulta || {}).items || {}).some(e => e.fecha === hoyISO()); go(c ? 'consulta' : 'quirofano'); };
+  $('#hcHoy').onclick = abre; $('#hcHoy').onkeydown = e => { if (e.key === 'Enter') abre(); };
+  pinta(); setInterval(pinta, 20000); window.chipsPinta = pinta;
+}
+
 /* =====================================================================
    ESTUDIOS Y ARCHIVOS DEL PACIENTE
    Fotos (cámara del celular), PDF / imágenes y enlaces externos ligados a cada paciente.
@@ -3478,6 +3567,7 @@ function verAviso() {
 
 /* ---------- Arranque ---------- */
 paintLogos();
+chipsCabecera();
 (function () {
   const flecha = d => `<button type="button" class="tabs-fl ${d}" tabindex="-1" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="${d === 'i' ? 'm15 6-6 6 6 6' : 'm9 6 6 6-6 6'}"/></svg></button>`;
   const estado = t => { const w = t.parentElement; if (!w || !w.classList.contains('tabs-sc')) return; w.classList.toggle('izq', t.scrollLeft > 4); w.classList.toggle('der', t.scrollLeft + t.clientWidth < t.scrollWidth - 4); };
